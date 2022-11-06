@@ -5,7 +5,7 @@ from .views import *
 app_name = 'artemis'
 
 urlpatterns = [
-    path('',index.as_view, name='index'),
+    path('',index.as_view(), name='index'),
     path('Estudiante/<str:pk>', Detalle_estudiante.as_view(), name='student_detail'),
     path('Estudiante/form/', Crear_estudiante.as_view(), name='new_student'),
 

@@ -36,7 +36,7 @@ class Crear_estudiante(CreateView):
     model = Estudiantes
     form_class = Estudiantes_form
     template_name = 'form.html'
-    success_url: reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:index')
 
 
 
