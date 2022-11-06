@@ -1,0 +1,11 @@
+<h1>{{ object.nombre_estudiante }}</h1>
+<p>rut: <i>{{ object.rut_estudiante }}</i></p>
+<p>nombre: <i>{{ object.nombre_estudiante }}</i></p>
+<p>apellido: <i>{{ object.apellido_estudiante }}</i></p>
+<p>num telefono: <i>{{ object.num_tel_estudiante }}</i></p>
+<p>direccion: <i>{{ object.direccion_estudiante }}</i></p>
+<p>profesion: <i>{{ object.profesion_estudiante }}</i></p>
+<p>beca: <i>{{ object.beca_estudiante }}</i></p>
+<p>
+    <a href="{% url "artemis:index" %}">Regresar</a>
+</p>
