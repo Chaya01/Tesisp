@@ -4,3 +4,15 @@
     <a href="{% url "artemis:new_student" %}">Agregar estudiante</a>
 </p>
 
+<ul>
+    {% for Estudiantes in object_list %}
+        <li>
+            <p>{{ artemis.name }}</p>
+            <p>
+                <a href="{% url "artemis:student_detail" Estudiantes.pk %}">Ver</a> | 
+                <a href="{% url "artemis:edit_student" Estudiantes.pk %}">Editar</a> | 
+                <a href="{% url "artemis:delete_student" Estudiantes.pk %}">Borrar</a> 
+            </p>
+        </li>
+    {% endfor %}
+</ul>

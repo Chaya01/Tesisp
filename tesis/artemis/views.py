@@ -26,16 +26,67 @@ class index(ListView):
         context['Estudiantes'] = Estudiantes.objects.all()
         return context
 
-
 ### Cruds ###
+### Crud Estudiantes###
 class Detalle_estudiante(DetailView):
     model = Estudiantes
-    template_name = 'student_detail.html'
+    template_name = 'cruds/student_detail.html'
 
 class Crear_estudiante(CreateView):
     model = Estudiantes
     form_class = Estudiantes_form
-    template_name = 'form.html'
+    template_name = 'cruds/form.html'
+    success_url = reverse_lazy('artemis:index')
+
+    def form_valid(self, form):
+        rut = form.cleaned_data['rut_estudiante']
+        nombre = form.cleaned_data['nombre_estudiante']
+        apellido = form.cleaned_data['apellido_estudiante']
+        a = re.search("[a-z]$",nombre) #validar nombre
+        b = re.search("[a-z]$",apellido) #validar apellido
+        x = re.search("[0-9]{8}[0-9kK]{1}$", rut) #validar rut
+
+        if not x:
+            form.add_error('rut_estudiante', 'rut invalido')
+            return self.form_invalid(form)
+        elif not a:
+            form.add_error('nombre_estudiante', 'el nombre solo debe contener caracteres alfanumericos')
+            return self.form_invalid(form)
+        elif not b:
+            form.add_error('apellido_estudiante','el apellido solo debe contener caracteres alfanumericos')
+            return self.form_invalid(form)
+        return super(Crear_estudiante, self).form_valid(form)
+    
+class Actualizar_estudiante(UpdateView):
+    model = Estudiantes
+    form_class = Estudiantes_form
+    template_name = 'cruds/update.html'
+    success_url = reverse_lazy('artemis:index')
+    #fields = ['rut', 'nombre','apellido','area', 'correo', 'telefono']
+
+    #validamos que el formulario sea valido
+    def form_valid(self, form):
+        rut = form.cleaned_data['rut_estudiante']
+        nombre = form.cleaned_data['nombre_estudiante']
+        apellido = form.cleaned_data['apellido_estudiante']
+        a = re.search("[a-z]$",nombre) #validar nombre
+        b = re.search("[a-z]$",apellido) #validar apellido
+        x = re.search("[0-9]{8}[0-9kK]{1}$", rut) #validar rut
+
+        if not x:
+            form.add_error('rut_estudiante', 'rut invalido')
+            return self.form_invalid(form)
+        elif not a:
+            form.add_error('nombre_estudiante', 'el nombre solo debe contener caracteres alfanumericos')
+            return self.form_invalid(form)
+        elif not b:
+            form.add_error('apellido_estudiante','el apellido solo debe contener caracteres alfanumericos')
+            return self.form_invalid(form)
+        return super(Actualizar_estudiante, self).form_valid(form)
+
+class Borrar_estudiante(DeleteView):
+    model = Estudiantes
+    template_name = 'cruds/delete.html'
     success_url = reverse_lazy('artemis:index')
 
 
