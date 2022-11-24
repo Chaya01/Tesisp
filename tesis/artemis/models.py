@@ -12,6 +12,15 @@ class Becas(models.Model):
     def __str__(self):
         return self.nombre_beca
 
+class Periodo(models.Model):
+    id = models.AutoField(primary_key=True)
+    nombre_periodo = models.CharField(max_length = 20) #ex-primer semestre 2022
+    fecha_inicio = models.DateField()
+    fecha_termino = models.DateField()
+    activo = models.BooleanField(default=False)
+    def __str__(self):
+        return self.nombre_periodo
+
 class Areas(models.Model):
     id = models.AutoField(primary_key=True)
     nombre_area = models.CharField(max_length=20)
@@ -63,11 +72,25 @@ class Diplomados(models.Model):
     def __str__(self):
         return self.nombre_diplomado
 
-class Inscripciones(models.Model):
+class Matriculas(models.Model):
     id = models.AutoField(primary_key=True)
     nombre_inscripcion = models.CharField(max_length=20)
     diplomado = models.ManyToManyField(Diplomados)
     capacidad = models.IntegerField()
     estudiantes = models.ManyToManyField(Estudiantes)
+    activo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
+    num_cuotas = models.IntegerField()
     def __str__(self):
         return self.nombre_inscripcion
+
+class Cuotas(models.Model):
+    id = models.AutoField(primary_key=True)
+    cuotas_por_pagar = models.ForeignKey(Matriculas,on_delete=models.CASCADE)
+    fecha_emision = models.DateField()
+    fecha_exp = models.DateField()
+    pagado = models.BooleanField(default=False)
+    fecha_pago = models.DateField()
+    monto_pago = models.IntegerField()
+    numero_cuota = models.IntegerField()
+    def __str__(self):
+        return self.cuotas_por_pagar

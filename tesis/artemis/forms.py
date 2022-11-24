@@ -16,3 +16,41 @@ class Estudiantes_form(forms.ModelForm):
     class Meta:
         model = Estudiantes
         fields = ['rut_estudiante','nombre_estudiante','apellido_estudiante','num_tel_estudiante','direccion_estudiante','profesion','beca']
+
+class Becas_form(forms.ModelForm):
+    class Meta:
+        model = Becas
+        fields = ['id','nombre_beca']
+
+class Periodo_form(forms.ModelForm):
+    class Meta:
+        model = Periodo
+        fields = ['id','nombre_periodo','fecha_inicio','fecha_termino','activo']
+
+class Profesiones_form(forms.ModelForm):
+    class Meta:
+        model = Profesiones
+        fields = ['id','nombre_profesion','area_profesion']
+
+class Docentes_form(forms.ModelForm):
+    class Meta:
+        model = Docentes
+        fields = ['rut_docente','nombre_docente','apellido_docente','profesion_docente','num_tel_docente']
+
+class Cursos_form(forms.ModelForm):
+    class Meta:
+        model = Cursos
+        fields = ['id','nombre_curso','docente']
+
+class Diplomados_form(forms.ModelForm):
+    class Meta:
+        model = Diplomados
+        fields = ['id','nombre_diplomado','cursos_req','capacidad']
+
+class Matriculas_form(forms.ModelForm):
+    class Meta:
+        fields = ['id','nombre_inscripcion','diplomado','capacidad','estudiantes','activo','num_cuotas']
+
+class Cuotas_form(forms.ModelForm):
+    class Meta:
+        fields = ['id','cuotas_por_pagar','fecha_emision','fecha_exp','pagado','fecha_pago','monto_pago','numero_cuota']
