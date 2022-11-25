@@ -20,7 +20,6 @@ class index(ListView):
     context_object_name = 'index'
     template_name = 'index.html'
     queryset = Estudiantes.objects.all()
-    #queryset = Becas.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super(index, self).get_context_data(**kwargs)
