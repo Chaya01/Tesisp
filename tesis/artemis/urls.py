@@ -12,6 +12,11 @@ urlpatterns = [
     path('Estudiantes/update/<str:pk>', Actualizar_estudiante.as_view(), name='edit_student'),
     path('Estudiantes/delete/<str:pk>', Borrar_estudiante.as_view(), name='delete_student'),
 
+    path('Becas/<str:pk>', Detalle_becas.as_view(), name='becas_detail'),
+    path('Becas/form/', Crear_beca.as_view(), name='new_beca'),
+    path('Becas/update/<str:pk>', Actualizar_beca.as_view(), name='edit_beca'),
+    path('Becas/delete/<str:pk>', Borrar_beca.as_view(), name='delete_beca'),
+
 
 
 #    path('areas/add/', Crear_area.as_view(), name='area-add'),
