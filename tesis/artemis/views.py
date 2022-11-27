@@ -73,7 +73,7 @@ class Crear_estudiante(CreateView):
     model = Estudiantes
     form_class = Estudiantes_form
     template_name = 'cruds/form.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_estudiantes')
 
     def form_valid(self, form):
         rut = form.cleaned_data['rut_estudiante']
@@ -98,7 +98,7 @@ class Actualizar_estudiante(UpdateView):
     model = Estudiantes
     form_class = Estudiantes_form
     template_name = 'cruds/update.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_estudiantes')
     #fields = ['rut', 'nombre','apellido','area', 'correo', 'telefono']
 
     #validamos que el formulario sea valido
@@ -124,7 +124,7 @@ class Actualizar_estudiante(UpdateView):
 class Borrar_estudiante(DeleteView):
     model = Estudiantes
     template_name = 'cruds/delete.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_estudiantes')
 
 ### Becas ###
 
@@ -175,18 +175,18 @@ class Crear_periodo(CreateView):
     model = Periodo
     form_class = Periodo_form
     template_name = 'cruds/form.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_periodos')
 
 class Actualizar_periodo(UpdateView):
     model = Periodo
     form_class = Periodo_form
     template_name = 'cruds/update.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_periodos')
 
 class Borrar_periodo(DeleteView):
     model = Periodo
     template_name = 'cruds/delete.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_periodos')
 
 ### Areas ###
 
