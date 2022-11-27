@@ -73,6 +73,26 @@ class panel_areas(ListView):
         context['Areas'] = Areas.objects.all()
         return context
 
+class panel_profesiones(ListView):
+    context_object_name = 'panel_profesiones'
+    template_name = 'panel_profesiones.html'
+    paginate_by = 10
+    queryset = Profesiones.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(panel_profesiones, self).get_context_data(**kwargs)
+        context['Profesiones'] = Profesiones.objects.all()
+        return context
+
+class panel_docentes(ListView):
+    context_object_name = 'panel_docentes'
+    template_name = 'panel_docentes.html'
+    paginate_by = 10
+    queryset = Docentes.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(panel_docentes, self).get_context_data(**kwargs)
+        context['Docentes'] = Docentes.objects.all()
+        return context
+
 
 ### Cruds ### funciones basicas###
 ### Crud Estudiantes###
@@ -248,7 +268,7 @@ class Crear_profesiones(CreateView):
     model = Profesiones
     form_class = Profesiones_form
     template_name = 'cruds/form.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_profesiones')
 
     def form_valid(self, form):
         nombre_p = form.cleaned_data['nombre_profesion']
@@ -260,14 +280,14 @@ class Crear_profesiones(CreateView):
 
 class Actualizar_profesiones(UpdateView):
     model = Profesiones
-    form_class = Periodo_form
+    form_class = Profesiones_form
     template_name = 'cruds/update.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_profesiones')
 
 class Borrar_profesiones(DeleteView):
     model = Profesiones
     template_name = 'cruds/delete.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_profesiones')
 
 ### Docentes ###
 
@@ -279,7 +299,7 @@ class Crear_docente(CreateView):
     model = Docentes
     form_class = Docentes_form
     template_name = 'cruds/form.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_docentes')
 
     def form_valid(self, form):
         rut = form.cleaned_data['rut_docente']
@@ -304,7 +324,7 @@ class Actualizar_docente(UpdateView):
     model = Docentes
     form_class = Docentes_form
     template_name = 'cruds/update.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_docentes')
 
     def form_valid(self, form):
         rut = form.cleaned_data['rut_docente']
@@ -323,12 +343,12 @@ class Actualizar_docente(UpdateView):
         elif not b:
             form.add_error('apellido_docente','el apellido solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
-        return super(Crear_docente, self).form_valid(form)
+        return super(Actualizar_docente, self).form_valid(form)
 
 class Borrar_docente(DeleteView):
     model = Docentes
     template_name = 'cruds/delete.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_docentes')
 
 ### Cursos ###
 
