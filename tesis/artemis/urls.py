@@ -5,11 +5,14 @@ from .views import *
 app_name = 'artemis'
 
 urlpatterns = [
+    ###paneles ###
     path('',index.as_view(), name='index'),
     path('panel_estudiantes.html',panel_estudiantes.as_view(),name ='panel_estudiantes'),
     path('panel_becas.html',panel_becas.as_view(),name='panel_becas'),
     path('panel_periodos.html',panel_periodos.as_view(),name = 'panel_periodos'),
+    path('panel_areas.html',panel_areas.as_view(),name = 'panel_areas'),
 
+    ### Funciones ###
     path('Estudiantes/<str:pk>', Detalle_estudiante.as_view(), name='student_detail'),
     path('Estudiantes/form/', Crear_estudiante.as_view(), name='new_student'),
     path('Estudiantes/update/<str:pk>', Actualizar_estudiante.as_view(), name='edit_student'),
@@ -24,6 +27,11 @@ urlpatterns = [
     path('Periodo/form/', Crear_periodo.as_view(), name='new_periodo'),
     path('Periodo/update/<str:pk>', Actualizar_periodo.as_view(), name='edit_periodo'),
     path('Periodo/delete/<str:pk>', Borrar_periodo.as_view(), name='delete_periodo'),
+
+#    path('Areas/<str:pk>', Detalle_areas.as_view(), name='areas_detail'),
+    path('Areas/form/', Crear_area.as_view(), name='new_area'),
+    path('Areas/update/<str:pk>', Actualizar_area.as_view(), name='edit_area'),
+    path('Areas/delete/<str:pk>', Borrar_area.as_view(), name='delete_area'),
 
 
 

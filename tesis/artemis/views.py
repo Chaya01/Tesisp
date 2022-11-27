@@ -63,6 +63,17 @@ class panel_periodos(ListView):
         context['Periodo'] = Periodo.objects.all()
         return context
 
+class panel_areas(ListView):
+    context_object_name = 'panel_areas'
+    template_name = 'panel_areas.html'
+    paginate_by = 10
+    queryset = Areas.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(panel_areas, self).get_context_data(**kwargs)
+        context['Areas'] = Areas.objects.all()
+        return context
+
+
 ### Cruds ### funciones basicas###
 ### Crud Estudiantes###
 class Detalle_estudiante(DetailView):
@@ -198,7 +209,7 @@ class Crear_area(CreateView):
     model = Areas
     form_class = Areas_form
     template_name = 'cruds/form.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_areas')
 
     def form_valid(self, form):
         nombre = form.cleaned_data['nombre_area']
@@ -212,7 +223,7 @@ class Actualizar_area(UpdateView):
     model = Areas
     form_class = Areas_form
     template_name = 'cruds/update.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_areas')
     
     def form_valid(self, form):
         nombre = form.cleaned_data['nombre_area']
@@ -225,7 +236,7 @@ class Actualizar_area(UpdateView):
 class Borrar_area(DeleteView):
     model = Areas
     template_name = 'cruds/delete.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_areas')
 
 ### Profesiones ###
 

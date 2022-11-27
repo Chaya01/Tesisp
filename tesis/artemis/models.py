@@ -26,8 +26,6 @@ class Areas(models.Model):
     nombre_area = models.CharField(max_length=20)
     def __str__(self):
         return self.nombre_area
-    def get_absolute_url(self):
-        return reverse('detalle_area', kwargs={'pk': self.pk})
 
 class Profesiones(models.Model):
     id = models.AutoField(primary_key=True)
