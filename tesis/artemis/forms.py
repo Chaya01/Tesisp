@@ -27,6 +27,13 @@ class Periodo_form(forms.ModelForm):
         model = Periodo
         fields = ['id','nombre_periodo','fecha_inicio','fecha_termino','activo']
 
+        widgets = {
+            'fecha_inicio' : forms.DateInput(format="%d/%m/%Y",
+                                            attrs = {'type':'date','class':'form-control dtpicker', 'required': 'true'}),
+            'fecha_termino' : forms.DateInput(format="%d/%m/%Y",
+                                            attrs = {'type':'date','class':'form-control dtpicker', 'required': 'true'}),
+        }
+
 class Profesiones_form(forms.ModelForm):
     class Meta:
         model = Profesiones

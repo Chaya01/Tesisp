@@ -5,11 +5,13 @@ from artemis.forms import Formulario_area
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from artemis.models import Areas, Estudiantes
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import (CreateView,UpdateView,DeleteView)
 from . import views
 from .forms import *
+from django.http import HttpResponse
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -27,8 +29,41 @@ class index(ListView):
         context['Becas'] = Becas.objects.all()
         return context
 
+#class panel_estudiantes(TemplateView): 
+#    template_name = 'panel_estudiantes.html'
 
-### Cruds ###
+### Paneles de administracion ###
+class panel_estudiantes(ListView):
+    context_object_name = 'panel_estudiantes'
+    template_name = 'panel_estudiantes.html'
+    paginate_by = 10
+    queryset = Estudiantes.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(panel_estudiantes, self).get_context_data(**kwargs)
+        context['Estudiantes'] = Estudiantes.objects.all()
+        return context
+
+class panel_becas(ListView):
+    context_object_name = 'panel_becas'
+    template_name = 'panel_becas.html'
+    paginate_by = 10
+    queryset = Becas.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(panel_becas, self).get_context_data(**kwargs)
+        context['Becas'] = Becas.objects.all()
+        return context
+
+class panel_periodos(ListView):
+    context_object_name = 'panel_periodos'
+    template_name = 'panel_periodos.html'
+    paginate_by = 10
+    queryset = Periodo.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(panel_periodos, self).get_context_data(**kwargs)
+        context['Periodo'] = Periodo.objects.all()
+        return context
+
+### Cruds ### funciones basicas###
 ### Crud Estudiantes###
 class Detalle_estudiante(DetailView):
     model = Estudiantes
@@ -101,7 +136,7 @@ class Crear_beca(CreateView):
     model = Becas
     form_class = Becas_form
     template_name ='cruds/form.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_becas')
 
     def form_valid(self, form):
         nombre = form.cleaned_data['nombre_beca']
@@ -115,7 +150,7 @@ class Actualizar_beca(UpdateView):
     model = Becas
     form_class = Becas_form
     template_name = 'cruds/update.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_becas')
     
     def form_valid(self, form):
         nombre = form.cleaned_data['nombre_beca']
@@ -128,19 +163,19 @@ class Actualizar_beca(UpdateView):
 class Borrar_beca(DeleteView):
     model = Becas
     template_name = 'cruds/delete.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_becas')
 
 ### Periodo ###
 
-class Detalle_periodos(DetailView):
-    model = Periodo
-    template_name ='cruds/periodos_detail.html'
+#class Detalle_periodos(DetailView):
+#    model = Periodo
+#    template_name ='cruds/periodos_detail.html'
 
 class Crear_periodo(CreateView):
     model = Periodo
     form_class = Periodo_form
     template_name = 'cruds/form.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:index')
 
 class Actualizar_periodo(UpdateView):
     model = Periodo
@@ -151,7 +186,7 @@ class Actualizar_periodo(UpdateView):
 class Borrar_periodo(DeleteView):
     model = Periodo
     template_name = 'cruds/delete.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:index')
 
 ### Areas ###
 
