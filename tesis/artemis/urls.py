@@ -14,6 +14,7 @@ urlpatterns = [
     path('panel_profesiones.html',panel_profesiones.as_view(),name = 'panel_profesiones'),
     path('panel_docentes.html',panel_docentes.as_view(),name = 'panel_docentes'),
     path('panel_cursos.html',panel_cursos.as_view(),name = 'panel_cursos'),
+    path('panel_diplomados.html',panel_diplomados.as_view(),name = 'panel_diplomados'),
 
     ### Funciones ###
     path('Estudiantes/<str:pk>', Detalle_estudiante.as_view(), name='student_detail'),
@@ -45,10 +46,16 @@ urlpatterns = [
     path('Docentes/form/', Crear_docente.as_view(), name='new_docente'),
     path('Docentes/update/<str:pk>', Actualizar_docente.as_view(), name='edit_docente'),
     path('Docentes/delete/<str:pk>', Borrar_docente.as_view(), name='delete_docente'),
+
     #    path('Areas/<str:pk>', Detalle_areas.as_view(), name='areas_detail'),
     path('Cursos/form/', Crear_cursos.as_view(), name='new_curso'),
     path('Cursos/update/<str:pk>', Actualizar_cursos.as_view(), name='edit_curso'),
     path('Cursos/delete/<str:pk>', Borrar_cursos.as_view(), name='delete_curso'),
+
+    #    path('Areas/<str:pk>', Detalle_areas.as_view(), name='areas_detail'),
+    path('Diplomados/form/', Crear_diplomados.as_view(), name='new_diplomado'),
+    path('Diplomados/update/<str:pk>', Actualizar_diplomados.as_view(), name='edit_diplomado'),
+    path('Diplomados/delete/<str:pk>', Borrar_diplomado.as_view(), name='delete_diplomado'),
 
 
 #    path('areas/add/', Crear_area.as_view(), name='area-add'),

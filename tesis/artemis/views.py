@@ -103,6 +103,17 @@ class panel_cursos(ListView):
         context['Cursos'] = Cursos.objects.all()
         return context
 
+class panel_diplomados(ListView):
+    context_object_name = 'panel_diplomados'
+    template_name = 'panel_diplomados.html'
+    paginate_by = 10
+    queryset = Diplomados.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(panel_diplomados, self).get_context_data(**kwargs)
+        context['Diplomados'] = Diplomados.objects.all()
+        context['Cursos'] = Cursos.objects.all()
+        return context
+
 
 ### Cruds ### funciones basicas###
 ### Crud Estudiantes###
@@ -391,9 +402,9 @@ class Detalle_diplomados(DetailView):
 
 class Crear_diplomados(CreateView):
     model = Diplomados
-    form_class = Cursos_form
+    form_class = Diplomados_form
     template_name = 'cruds/form.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_diplomados')
 
     def form_valid(self, form):
         nombre = form.cleaned_data['nombre_diplomado']
@@ -406,8 +417,8 @@ class Crear_diplomados(CreateView):
 class Actualizar_diplomados(UpdateView):
     model = Diplomados
     form_class = Diplomados_form
-    template_name = 'cruds/upadate.html'
-    sucess_url = reverse_lazy('artemis:index')
+    template_name = 'cruds/update.html'
+    success_url = reverse_lazy('artemis:panel_diplomados')
 
     def form_valid(self, form):
         nombre = form.cleaned_data['nombre_diplomado']
@@ -420,7 +431,7 @@ class Actualizar_diplomados(UpdateView):
 class Borrar_diplomado(DeleteView):
     model = Diplomados
     template_name = 'cruds/delete.html'
-    sucess_url= reverse_lazy('artemis:index')
+    success_url= reverse_lazy('artemis:panel_diplomados')
 
 ### Matriculas ###
 
