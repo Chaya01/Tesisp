@@ -93,6 +93,16 @@ class panel_docentes(ListView):
         context['Docentes'] = Docentes.objects.all()
         return context
 
+class panel_cursos(ListView):
+    context_object_name = 'panel_cursos'
+    template_name = 'panel_cursos.html'
+    paginate_by = 10
+    queryset = Cursos.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(panel_cursos, self).get_context_data(**kwargs)
+        context['Cursos'] = Cursos.objects.all()
+        return context
+
 
 ### Cruds ### funciones basicas###
 ### Crud Estudiantes###
@@ -359,19 +369,19 @@ class Detalle_cursos(DetailView):
 class Crear_cursos(CreateView):
     model = Cursos
     form_class = Cursos_form
-    template_name = 'cruds/forms.html'
-    sucess_url = reverse_lazy('artemis:index')
+    template_name = 'cruds/form.html'
+    success_url = reverse_lazy('artemis:panel_cursos')
 
 class Actualizar_cursos(UpdateView):
     model = Cursos
     form_class = Cursos_form
     template_name = 'cruds/update.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_cursos')
 
 class Borrar_cursos(DeleteView):
     model = Cursos
     template_name ='cruds/delete.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_cursos')
 
 ### Diplomados ###
 
