@@ -78,16 +78,17 @@ class Matriculas(models.Model):
     estudiantes = models.ManyToManyField(Estudiantes)
     activo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     num_cuotas = models.IntegerField()
+    precio = models.IntegerField()
     def __str__(self):
         return self.nombre_inscripcion
 
 class Cuotas(models.Model):
     id = models.AutoField(primary_key=True)
     cuotas_por_pagar = models.ForeignKey(Matriculas,on_delete=models.CASCADE)
-    fecha_emision = models.DateField()
-    fecha_exp = models.DateField()
+    fecha_emision = models.DateField(auto_now_add=True)
+    fecha_exp = models.DateField(null=True, blank=True)
     pagado = models.BooleanField(default=False)
-    fecha_pago = models.DateField()
+    fecha_pago = models.DateField(null=True, blank=True)
     monto_pago = models.IntegerField()
     numero_cuota = models.IntegerField()
     def __str__(self):
