@@ -1,3 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
 <h1>Indice</h1>
 
 <p>
@@ -31,3 +38,4 @@
 <p>
     <a href="{% url "artemis:panel_diplomados" %}">Panel Diplomados</a>
 </p>
+{%endblock content%}
