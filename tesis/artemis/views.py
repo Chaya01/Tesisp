@@ -114,6 +114,17 @@ class panel_diplomados(ListView):
         context['Cursos'] = Cursos.objects.all()
         return context
 
+class panel_matriculas(ListView):
+    context_object_name = 'panel_matriculas'
+    template_name = 'panel_matriculas.html'
+    paginate_by = 10
+    queryset = Matriculas.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(panel_matriculas, self).get_context_data(**kwargs)
+        context['Matriculas'] = Matriculas.objects.all()
+        context['Diplomados'] = Diplomados.objects.all()
+        context['Estudiantes'] = Estudiantes.objects.all()
+        return context
 
 ### Cruds ### funciones basicas###
 ### Crud Estudiantes###
@@ -443,18 +454,18 @@ class Crear_matricula(CreateView):
     model = Matriculas
     form_class = Matriculas_form
     template_name = 'cruds/form.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_matriculas')
 
 class Actualizar_matricula(UpdateView):
     model = Matriculas
     form_class = Matriculas_form
     template_name = 'cruds/update.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_matriculas')
 
 class Borrar_matricula(DeleteView):
     model = Matriculas
     template_name = 'cruds/delete.html'
-    success_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:panel_matriculas')
 
 ### Cuotas ###
 

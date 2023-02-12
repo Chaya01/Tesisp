@@ -60,7 +60,13 @@ class Diplomados_form(forms.ModelForm):
 
 class Matriculas_form(forms.ModelForm):
     class Meta:
+        model = Matriculas
         fields = ['id','nombre_inscripcion','diplomado','capacidad','estudiantes','activo','num_cuotas']
+
+        widgets ={
+            'diplomado' : forms.CheckboxSelectMultiple(),
+            'estudiantes' : forms.CheckboxSelectMultiple(),
+        }
 
 class Cuotas_form(forms.ModelForm):
     class Meta:

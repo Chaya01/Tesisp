@@ -25,7 +25,8 @@
   <tr>
     <td>{{ Cursos.id }} </td> 
     <td>{{ Cursos.nombre_curso }} </td> 
-    <td>{{ Cursos.docente }} <a href="{% url "artemis:edit_curso" Cursos.pk %}">Editar</a> <a href="{% url "artemis:delete_curso" Cursos.pk %}">Borrar</a></td> </td>
+    <td>{{ Cursos.docente }} </td>
+    <td><a href="{% url "artemis:edit_curso" Cursos.pk %}">Editar</a> <a href="{% url "artemis:delete_curso" Cursos.pk %}">Borrar</a></td> </td>
   </tr>
 {% endfor %}
     </tr>
