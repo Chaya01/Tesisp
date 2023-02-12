@@ -8,54 +8,54 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
         {% if request.user.is_authenticated %}
-<!-- 
+
           <li class="nav-item {% if 'index' in segment %} active {% endif %}">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="{% url "artemis:panel_estudiantes" %}">
               <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+              <p>Panel Estudiantes</p>
             </a>
           </li>
           <li class="nav-item {% if 'page-user' in segment %} active {% endif %}">
-            <a class="nav-link" href="/page-user.html">
+            <a class="nav-link" href="{% url "artemis:panel_becas" %}">
               <i class="material-icons">person</i>
-              <p>User Profile</p>
+              <p>Panel Becas</p>
             </a>
           </li>
           <li class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-tables.html">
+            <a class="nav-link" href="{% url "artemis:panel_periodos" %}">
               <i class="material-icons">content_paste</i>
-              <p>Table List</p>
+              <p>Panel Periodos</p>
             </a>
           </li>
           <li class="nav-item {% if 'ui-typography' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-typography.html">
+            <a class="nav-link" href="{% url "artemis:panel_areas" %}">
               <i class="material-icons">library_books</i>
-              <p>Typography</p>
+              <p>Panel Areas</p>
             </a>
           </li>
           <li class="nav-item {% if 'ui-icons' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-icons.html">
+            <a class="nav-link" href="{% url "artemis:panel_profesiones" %}">
               <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
+              <p>Panel Profesiones</p>
             </a>
           </li>
           <li class="nav-item {% if 'ui-maps' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-maps.html">
+            <a class="nav-link" href="{% url "artemis:panel_docentes" %}">
               <i class="material-icons">location_ons</i>
-              <p>Maps</p>
+              <p>Panel Docentes</p>
             </a>
           </li>
           <li class="nav-item {% if 'ui-notifications' in segment %} active {% endif %}">
-            <a class="nav-link" href="/ui-notifications.html">
+            <a class="nav-link" href="{% url "artemis:panel_cursos" %}">
               <i class="material-icons">notifications</i>
-              <p>Notifications</p>
+              <p>Panel Cursos</p>
             </a>
           </li>
           
           <li class="nav-item ">
-            <a class="nav-link" href="/page-rtl-support.html">
+            <a class="nav-link" href="{% url "artemis:panel_diplomados" %}">
               <i class="material-icons">language</i>
-              <p>RTL Support</p>
+              <p>Panel Diplomados</p>
             </a>
           </li>
 
@@ -63,27 +63,10 @@
               <i class="material-icons">directions_run</i>
               <p>Logout</p>
             </a>
-          </li> -->
+          </li> 
 
-          <li class="nav-item active-pro ">
-            <a class="nav-link" 
-               target="_blank" rel="noopener noreferrer"  
-               href="https://appseed.us/admin-dashboards/django-dashboard-material-pro">
-              <i class="material-icons">unarchive</i>
-              <p>PRO Version</p>
-            </a>
-          </li>
 
         {% else %}
-
-          <li class="nav-item active">
-            <a class="nav-link" 
-               target="_blank" rel="noopener noreferrer"  
-               href="https://appseed.us/admin-dashboards/django-dashboard-material-pro">
-              <i class="material-icons">unarchive</i>
-              <p>PRO Version</p>
-            </a>
-          </li>          
 
         {% endif %}
         </ul>
