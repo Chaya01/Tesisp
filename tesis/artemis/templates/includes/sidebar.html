@@ -9,43 +9,43 @@
         <ul class="nav">
         {% if request.user.is_authenticated %}
 
-          <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+          <li class="nav-item {% if 'panel_estudiantes' in segment %} active {% endif %}">
             <a class="nav-link" href="{% url "artemis:panel_estudiantes" %}">
               <i class="material-icons">dashboard</i>
               <p>Panel Estudiantes</p>
             </a>
           </li>
-          <li class="nav-item {% if 'page-user' in segment %} active {% endif %}">
+          <li class="nav-item {% if 'panel_becas' in segment %} active {% endif %}">
             <a class="nav-link" href="{% url "artemis:panel_becas" %}">
               <i class="material-icons">person</i>
               <p>Panel Becas</p>
             </a>
           </li>
-          <li class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">
+          <li class="nav-item {% if 'panel_periodos' in segment %} active {% endif %}">
             <a class="nav-link" href="{% url "artemis:panel_periodos" %}">
               <i class="material-icons">content_paste</i>
               <p>Panel Periodos</p>
             </a>
           </li>
-          <li class="nav-item {% if 'ui-typography' in segment %} active {% endif %}">
+          <li class="nav-item {% if 'panel_areas' in segment %} active {% endif %}">
             <a class="nav-link" href="{% url "artemis:panel_areas" %}">
               <i class="material-icons">library_books</i>
               <p>Panel Areas</p>
             </a>
           </li>
-          <li class="nav-item {% if 'ui-icons' in segment %} active {% endif %}">
+          <li class="nav-item {% if 'panel_profesiones' in segment %} active {% endif %}">
             <a class="nav-link" href="{% url "artemis:panel_profesiones" %}">
               <i class="material-icons">bubble_chart</i>
               <p>Panel Profesiones</p>
             </a>
           </li>
-          <li class="nav-item {% if 'ui-maps' in segment %} active {% endif %}">
+          <li class="nav-item {% if 'panel_docentes' in segment %} active {% endif %}">
             <a class="nav-link" href="{% url "artemis:panel_docentes" %}">
               <i class="material-icons">location_ons</i>
               <p>Panel Docentes</p>
             </a>
           </li>
-          <li class="nav-item {% if 'ui-notifications' in segment %} active {% endif %}">
+          <li class="nav-item {% if 'panel_cursoss' in segment %} active {% endif %}">
             <a class="nav-link" href="{% url "artemis:panel_cursos" %}">
               <i class="material-icons">notifications</i>
               <p>Panel Cursos</p>

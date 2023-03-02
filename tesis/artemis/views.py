@@ -15,6 +15,19 @@ from django.shortcuts import render
 
 # Create your views here.
 
+
+#Funciones suplementarias
+def crear_cuotas(numero_cuotas:int, payload):
+    objetos_a_crear = []
+    for cuotas in range(numero_cuotas):
+        objetos_a_crear.append = Cuotas(
+            cuotas_por_pagar=payload,
+            monto_pago = int(payload.precio/numero_cuotas),
+            numero_cuota = cuotas
+            )
+    res = Cuotas.objects.bulk_create(objetos_a_crear)
+
+    return res
 #def index(request):
 #    return HttpResponse("Hello, world. You're at the polls index.")
 
