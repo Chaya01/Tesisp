@@ -26,12 +26,14 @@
         <th>Nombre </th>
         <th>Cursos  </th>
         <th>Capacidad </th>
+        <th>Precio </th>
 {% for Diplomados in object_list %}
   <tr>
     <td>{{ Diplomados.id }} </td> 
     <td>{{ Diplomados.nombre_diplomado }} </td> 
     <td>{{ Diplomados.cursos_req.all|join:", " }} </td>  {{ place.area.all }}
     <td>{{ Diplomados.capacidad}} </td>
+    <td>{{ Diplomados.precio}} </td>
     <td><a href="{% url "artemis:edit_diplomado" Diplomados.pk %}">Editar</a> <a href="{% url "artemis:delete_diplomado" Diplomados.pk %}">Borrar</a></td> </td> 
   </tr>
 {% endfor %}

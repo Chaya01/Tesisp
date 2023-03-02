@@ -67,6 +67,7 @@ class Diplomados(models.Model):
     # cursos_req = models.ForeignKey(Cursos, on_delete=models.CASCADE)
     cursos_req = models.ManyToManyField(Cursos)
     capacidad = models.IntegerField()
+    precio = models.IntegerField()
     def __str__(self):
         return self.nombre_diplomado
 
@@ -75,10 +76,9 @@ class Matriculas(models.Model):
     nombre_inscripcion = models.CharField(max_length=20)
     diplomado = models.ManyToManyField(Diplomados)
     capacidad = models.IntegerField()
-    estudiantes = models.ManyToManyField(Estudiantes)
+    estudiantes = models.ForeignKey(Estudiantes, on_delete=models.CASCADE)
     activo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     num_cuotas = models.IntegerField()
-    precio = models.IntegerField()
     def __str__(self):
         return self.nombre_inscripcion
 
