@@ -1,4 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from .forms import NewUserForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
 from django.http import HttpResponse
 from django.views.generic.edit import FormView
 from artemis.forms import Formulario_area
@@ -13,8 +17,39 @@ from .forms import *
 from django.http import HttpResponse
 from django.shortcuts import render
 
-# Create your views here.
+#funciones de login
 
+# registro
+def register_request(request):
+	if request.method == "POST":
+		form = NewUserForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			login(request, user)
+			messages.success(request, "Registro Exitoso." )
+			return redirect("artemis:index")
+		messages.error(request, "Registro Fallido. Informacion no valida.")
+	form = NewUserForm()
+	return render (request=request, template_name="register.html", context={"register_form":form})
+
+# Login
+def login_request(request):
+	if request.method == "POST":
+		form = AuthenticationForm(request, data=request.POST)
+		if form.is_valid():
+			username = form.cleaned_data.get('username')
+			password = form.cleaned_data.get('password')
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				login(request, user)
+				messages.info(request, f"You are now logged in as {username}.")
+				return redirect("artemis:index")
+			else:
+				messages.error(request,"Invalid username or password.")
+		else:
+			messages.error(request,"Invalid username or password.")
+	form = AuthenticationForm()
+	return render(request=request, template_name="login.html", context={"login_form":form})
 
 #Funciones suplementarias
 def crear_cuotas(numero_cuotas:int, payload):
