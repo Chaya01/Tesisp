@@ -2,7 +2,10 @@
 
 {% block content %}
 <form method="post">{% csrf_token %}
-    ¿Estás seguro que deseas borrar el usuario "{{ object }}"?
-    <input type="submit" value="Submit" />
+    ¿Estás seguro que deseas borrar el registro "{{ object }}"?
+<div>
+    <button type="submit" class ="btn btn-success" value="submit"> Eliminar </button>
+    <input type="button" class = "btn btn-cancel" onclick="history.back();" value="Regresar">
+</div>
 </form> 
 {%endblock content%}
