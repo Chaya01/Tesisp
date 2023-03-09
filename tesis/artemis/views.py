@@ -503,7 +503,8 @@ class Crear_matricula(CreateView):
     form_class = Matriculas_form
     template_name = 'cruds/form.html'
     success_url = reverse_lazy('artemis:panel_matriculas')
-
+    def crear_cuotas(self, request):
+        return Matriculas.generar_coutas()
 class Actualizar_matricula(UpdateView):
     model = Matriculas
     form_class = Matriculas_form

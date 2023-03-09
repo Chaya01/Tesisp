@@ -2,7 +2,7 @@ from operator import truediv
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.urls import reverse
-
+from django.utils.timezone import datetime
 
 # Create your models here.
 
@@ -81,7 +81,13 @@ class Matriculas(models.Model):
     num_cuotas = models.IntegerField()
     def __str__(self):
         return self.nombre_inscripcion
-
+    def generar_coutas(self):
+        ctas = []
+        for cuota in range(self.num_cuotas):
+           obj = Cuotas(coutas_por_pagar=self, monto_pago=self.diplomado[0].precio/self.num_cuotas, numero_cuota=cuota)
+           ctas.append(obj)
+        create = Cuotas.objects.bulk_create(ctas)
+        return create
 class Cuotas(models.Model):
     id = models.AutoField(primary_key=True)
     cuotas_por_pagar = models.ForeignKey(Matriculas,on_delete=models.CASCADE)
