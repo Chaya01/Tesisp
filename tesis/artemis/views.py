@@ -15,7 +15,11 @@ from django.views.generic.edit import (CreateView,UpdateView,DeleteView)
 from . import views
 from .forms import *
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import Matriculas_form
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
+### Funciones ###
 
 #funciones de login
 
@@ -503,8 +507,37 @@ class Crear_matricula(CreateView):
     form_class = Matriculas_form
     template_name = 'cruds/form.html'
     success_url = reverse_lazy('artemis:panel_matriculas')
-    def crear_cuotas(self, request):
-        return Matriculas.generar_coutas()
+
+    def form_valid(self, form):
+        # Create the Matriculas object
+        response = super().form_valid(form)
+
+        # Retrieve the Matriculas object
+        matricula = self.object
+
+        # Create the payments
+        self.create_payments(matricula.id, matricula.num_cuotas)
+
+        # Return the response
+        return response
+
+    def create_payments(self, matricula_id, num_payments):
+        # Retrieve the Matriculas object
+        matricula = Matriculas.objects.get(pk=matricula_id)
+        # Retrieve Diplomados objects
+        diplomado = matricula.diplomado # assuming only one diploma is associated with a Matriculas object
+
+        fecha_exp = datetime.today() + relativedelta(months=1)
+
+        # Create the specified number of payments
+        for i in range(num_payments):
+            # Calculate the payment amount (for example, divide the total cost by the number of payments)
+            payment_amount = diplomado.precio / matricula.num_cuotas
+            # Create a new payment object and associate it with the Matriculas object
+#            payment = Cuotas.objects.create(cuotas_por_pagar=matricula, monto_pago=payment_amount, numero_cuota=i+1)
+            payment = Cuotas.objects.create(cuotas_por_pagar=matricula, monto_pago=payment_amount, numero_cuota=i+1, fecha_emision=datetime.today(), fecha_exp=fecha_exp)
+            fecha_exp += relativedelta(months=1)
+
 class Actualizar_matricula(UpdateView):
     model = Matriculas
     form_class = Matriculas_form
