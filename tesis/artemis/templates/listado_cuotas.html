@@ -5,34 +5,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Matriculas</title>
+    <title>Cuotas</title>   
    <!-- Bootstrap -->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
    {% load crispy_forms_tags %}
 </head>
 
-<h1>Panel Matriculas</h1>
+<h1>Cuotas</h1>
 <ul>
-
-<p>
-    <a href="{% url "artemis:new_matricula" %}">Agregar matricula</a>
-</p>
 <p>{{ artemis.name }}</p>
 
 <div class="table-responsive">
     <table class="table table-striped"> 
-        <th>Diplomado </th>
-        <th>Estudiantes </th>
-        <th>Estado</th>
-        <th>Numero de Cuotas</th>
-{% for Matriculas in object_list %}
+        <th>Estudiante </th>
+        <th>Numero de cuota </th>
+        <th>fecha emision </th>
+        <th>fecha expiracion</th>
+        <th>Estado del pago</th>
+        <th>Monto</th>
+{% for cuota in object_list %}
   <tr>
-    <td>{{ Matriculas.diplomado|join:", " }} </td>  {{ place.area.all }}
-    <td>{{ Matriculas.estudiantes|join:", " }} </td>  {{ place.area.all }}
-    <td>{{ Matriculas.activo }} </td>
-    <td>{{ Matriculas.num_cuotas }} </td> <a href="{% url "artemis:listado_cuotas" pk=Matriculas.pk %}">Ver cuotas</a>
-    <td><a href="{% url "artemis:edit_matricula" Matriculas.pk %}">Editar</a> <a href="{% url "artemis:delete_matricula" Matriculas.pk %}">Borrar</a></td> </td> 
-  </tr>
+    <td>{{  cuota.cuotas_por_pagar.estudiantes.nombre_estudiante }} </td>
+    <td>{{ cuota.numero_cuota|join:", " }} </td>  {{ place.area.all }}
+    <td>{{ cuota.fecha_emision }} </td>
+    <td>{{ cuota.fecha_exp }} </td>
+    <td>{{ cuota.pagado }} </td>
+    <td>{{ cuota.monto_pago }} </td>
+</tr>
 {% endfor %}
     </tr>
     </table>

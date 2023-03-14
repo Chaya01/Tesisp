@@ -16,6 +16,11 @@ urlpatterns = [
     path('panel_cursos.html',panel_cursos.as_view(),name = 'panel_cursos'),
     path('panel_diplomados.html',panel_diplomados.as_view(),name = 'panel_diplomados'),
     path('panel_matriculas.html',panel_matriculas.as_view(),name ='panel_matriculas'),
+#   path('listado_cuotas.html',listado_cuotas.as_view(),name ='listado_cuotas'),
+#    path('Cuotas/<int:pk>/', listado_cuotas.as_view(), name='listado_cuotas'),
+    path('cuotas/<int:pk>/', views.listado_cuotas.as_view(), name='listado_cuotas'),
+
+
     path("login.html", views.login_request, name="login"),
     path("register.html", views.register_request, name="register"),
 

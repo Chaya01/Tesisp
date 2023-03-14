@@ -177,6 +177,19 @@ class panel_matriculas(ListView):
         context['Diplomados'] = Diplomados.objects.all()
         context['Estudiantes'] = Estudiantes.objects.all()
         return context
+    
+class listado_cuotas(ListView):
+    model = Cuotas
+    template_name = 'listado_cuotas.html'
+    context_object_name = 'cuotas'
+
+    def get_queryset(self):
+        # Retrieve the user ID from the URL parameter
+        matricula_id  = self.kwargs.get('pk')
+#        print("User ID:", matricula_id) print query data
+
+        # Return a queryset of all Cuotas objects that belong to the user
+        return Cuotas.objects.filter(cuotas_por_pagar_id=matricula_id)
 
 ### Cruds ### funciones basicas###
 ### Crud Estudiantes###

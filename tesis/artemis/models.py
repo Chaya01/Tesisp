@@ -68,34 +68,32 @@ class Diplomados(models.Model):
     cursos_req = models.ManyToManyField(Cursos)
     capacidad = models.IntegerField()
     precio = models.IntegerField()
+
     def __str__(self):
         return self.nombre_diplomado
 
 class Matriculas(models.Model):
     id = models.AutoField(primary_key=True)
-    nombre_inscripcion = models.CharField(max_length=20)
-    diplomado = models.ManyToManyField(Diplomados)
-    capacidad = models.IntegerField()
+#    nombre_inscripcion = models.CharField(max_length=20)
+    diplomado = models.ForeignKey(Diplomados,on_delete=models.CASCADE)
+#    capacidad = models.IntegerField()
     estudiantes = models.ForeignKey(Estudiantes, on_delete=models.CASCADE)
     activo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     num_cuotas = models.IntegerField()
+    
     def __str__(self):
-        return self.nombre_inscripcion
-    def generar_coutas(self):
-        ctas = []
-        for cuota in range(self.num_cuotas):
-           obj = Cuotas(coutas_por_pagar=self, monto_pago=self.diplomado[0].precio/self.num_cuotas, numero_cuota=cuota)
-           ctas.append(obj)
-        create = Cuotas.objects.bulk_create(ctas)
-        return create
+        return '{} - {}'.format(self.estudiantes, self.diplomado)
+
+
 class Cuotas(models.Model):
     id = models.AutoField(primary_key=True)
     cuotas_por_pagar = models.ForeignKey(Matriculas,on_delete=models.CASCADE)
-    fecha_emision = models.DateField(auto_now_add=True)
+    fecha_emision = models.DateField(auto_now_add=True) 
     fecha_exp = models.DateField(null=True, blank=True)
     pagado = models.BooleanField(default=False)
     fecha_pago = models.DateField(null=True, blank=True)
     monto_pago = models.IntegerField()
     numero_cuota = models.IntegerField()
+
     def __str__(self):
-        return self.cuotas_por_pagar
+        return str(self.cuotas_por_pagar)
