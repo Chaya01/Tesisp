@@ -8,6 +8,7 @@ from django.views.generic.edit import FormView
 from artemis.forms import Formulario_area
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views import View
 from artemis.models import Areas, Estudiantes
 from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import DetailView
@@ -19,6 +20,9 @@ from django.shortcuts import render, redirect
 from .forms import Matriculas_form
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
+from django.shortcuts import redirect
+from django.utils import timezone
+
 ### Funciones ###
 
 #funciones de login
@@ -182,6 +186,7 @@ class listado_cuotas(ListView):
     model = Cuotas
     template_name = 'listado_cuotas.html'
     context_object_name = 'cuotas'
+    paginate_by = 10
 
     def get_queryset(self):
         # Retrieve the user ID from the URL parameter
@@ -190,6 +195,7 @@ class listado_cuotas(ListView):
 
         # Return a queryset of all Cuotas objects that belong to the user
         return Cuotas.objects.filter(cuotas_por_pagar_id=matricula_id)
+    
 
 ### Cruds ### funciones basicas###
 ### Crud Estudiantes###

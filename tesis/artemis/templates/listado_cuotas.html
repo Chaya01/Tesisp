@@ -11,50 +11,61 @@
    {% load crispy_forms_tags %}
 </head>
 
-<h1>Cuotas</h1>
+<h2>Cuotas</h2>
 <ul>
 <p>{{ artemis.name }}</p>
 
 <div class="table-responsive">
-    <table class="table table-striped"> 
-        <th>Estudiante </th>
-        <th>Numero de cuota </th>
-        <th>fecha emision </th>
-        <th>fecha expiracion</th>
-        <th>Estado del pago</th>
-        <th>Monto</th>
-{% for cuota in object_list %}
-  <tr>
-    <td>{{  cuota.cuotas_por_pagar.estudiantes.nombre_estudiante }} </td>
-    <td>{{ cuota.numero_cuota|join:", " }} </td>  {{ place.area.all }}
-    <td>{{ cuota.fecha_emision }} </td>
-    <td>{{ cuota.fecha_exp }} </td>
-    <td>{{ cuota.pagado }} </td>
-    <td>{{ cuota.monto_pago }} </td>
-</tr>
-{% endfor %}
-    </tr>
-    </table>
-
+    <table class="table table-hover table table-bordered"> 
+        <thead class="thead-light">
+            <tr>
+                <th>Estudiante </th>
+                <th>Numero de cuota </th>
+                <th>fecha emision </th>
+                <th>fecha expiracion</th>
+                <th>Estado del pago</th>
+                <th>Monto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cuota in object_list %}
+                <tr>
+                    <td>{{  cuota.cuotas_por_pagar.estudiantes.nombre_estudiante }} </td>
+                    <td>{{ cuota.numero_cuota|join:", " }} </td>  {{ place.area.all }}
+                    <td>{{ cuota.fecha_emision }} </td>
+                    <td>{{ cuota.fecha_exp }} </td>
+                    <td>{{ cuota.pagado }}</td>
+                    <td>{{ cuota.monto_pago }} </td>
+                    <td> <a href="{% url """ class="btn btn-success btn-sm">Pagar</a> 
+                </td> 
+            </tr>
+          {% endfor %}
+      </tbody>
+  </table>
     <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
-            {% endif %}
-    
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-    
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">Ultima &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-    <p>
-        <a href="{% url "artemis:index" %}">Volver al indice</a>
+        <ul class="pagination justify-content-center">
+      
+          {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primera</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">&laquo; Primera</span></li>
+          <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+          {% endif %}
+      
+          <li class="page-item disabled"><span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+      
+          {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+          <li class="page-item disabled"><span class="page-link">Última &raquo;</span></li>
+          {% endif %}
+      </div>
+      <p>
+        <a href="{% url "artemis:panel_matriculas" %}" class="btn btn-secondary btn-sm" >Volver a matriculas</a>
     </p>
 </ul>
 {%endblock content%}

@@ -1,5 +1,5 @@
-
 {% extends "base.html" %}
+
 {% block content %}
 
 <head>
@@ -12,46 +12,59 @@
    {% load crispy_forms_tags %}
 </head>
 
-<h1>Panel Becas</h1>
+<h2>Panel Becas</h2>
 <ul>
-
 <p>
     <a href="{% url "artemis:new_beca" %}">Agregar Beca</a>
 </p>
 <p>{{ artemis.name }}</p>
 
 <div class="table-responsive">
-    <table class="table table-striped"> 
-        <th>Id</th>
-        <th>Nombre Beca</th>
-{% for Becas in object_list %}
-  <tr>
-    <td>{{ Becas.id }} </td> 
-    <td>{{ Becas.nombre_beca }} <td><a href="{% url "artemis:edit_beca" Becas.pk %}">Editar</a> <a href="{% url "artemis:delete_beca" Becas.pk %}">Borrar</a></td> </td>       
-  </tr>
-{% endfor %}
+    <table class="table table-hover table table-bordered"> 
+        <thead class="thead-light">
+            <tr>
+                <th>Id</th>
+                <th>Nombre Beca</th>
+                <th>acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for Becas in object_list %}
+            <tr>
+                <td>{{ Becas.id }} </td> 
+                <td>{{ Becas.nombre_beca }} </td>
+                <td><a href="{% url "artemis:edit_beca" Becas.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url "artemis:delete_beca" Becas.pk %}" class="btn btn-danger btn-sm">Borrar</a>
+                    </td>     
+            </td>
+        </td> 
     </tr>
-    </table>
-
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
-            {% endif %}
-    
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-    
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">Ultima &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
+  {% endfor %}
+</tbody>
+</table>
+<div class="pagination">
+    <ul class="pagination justify-content-center">
+  
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primera</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+      {% else %}
+      <li class="page-item disabled"><span class="page-link">&laquo; Primera</span></li>
+      <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+      {% endif %}
+  
+      <li class="page-item disabled"><span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+  
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
+      {% else %}
+      <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+      <li class="page-item disabled"><span class="page-link">Última &raquo;</span></li>
+      {% endif %}
+  </div>
     <p>
-        <a href="{% url "artemis:index" %}">Volver al indice</a>
+        <a href="{% url "artemis:index" %}" class="btn btn-secondary btn-sm" >Volver al indice</a>
     </p>
 </ul>
 {%endblock content%}

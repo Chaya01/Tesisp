@@ -11,51 +11,62 @@
    {% load crispy_forms_tags %}
 </head>
 
-<h1>Panel Matriculas</h1>
+<h2>Panel Matriculas</h2>
 <ul>
-
 <p>
-    <a href="{% url "artemis:new_matricula" %}">Agregar matricula</a>
+    <a href="{% url "artemis:new_matricula" %}" class="btn btn-success btn-sm">Agregar matricula</a>
 </p>
 <p>{{ artemis.name }}</p>
 
 <div class="table-responsive">
-    <table class="table table-striped"> 
-        <th>Diplomado </th>
-        <th>Estudiantes </th>
-        <th>Estado</th>
-        <th>Numero de Cuotas</th>
-{% for Matriculas in object_list %}
-  <tr>
-    <td>{{ Matriculas.diplomado|join:", " }} </td>  {{ place.area.all }}
-    <td>{{ Matriculas.estudiantes|join:", " }} </td>  {{ place.area.all }}
-    <td>{{ Matriculas.activo }} </td>
-    <td>{{ Matriculas.num_cuotas }} </td> <a href="{% url "artemis:listado_cuotas" pk=Matriculas.pk %}">Ver cuotas</a>
-    <td><a href="{% url "artemis:edit_matricula" Matriculas.pk %}">Editar</a> <a href="{% url "artemis:delete_matricula" Matriculas.pk %}">Borrar</a></td> </td> 
-  </tr>
-{% endfor %}
-    </tr>
+    <table class="table table-hover table table-bordered"> 
+        <thead class="thead-light">
+            <tr>
+                <th>Diplomado </th>
+                <th>Estudiantes </th>
+                <th>Estado</th>
+                <th>Numero de Cuotas</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for Matriculas in object_list %}
+              <tr>
+                <td>{{ Matriculas.diplomado|join:", " }} </td>  {{ place.area.all }}
+                <td>{{ Matriculas.estudiantes|join:", " }} </td>  {{ place.area.all }}
+                <td>{{ Matriculas.activo }} </td>
+                <td>{{ Matriculas.num_cuotas }} </td> 
+                <td> <a href="{% url "artemis:edit_matricula" Matriculas.pk %}" class="btn btn-warning btn-sm">Editar</a> 
+                    <a href="{% url "artemis:delete_matricula" Matriculas.pk %}" class="btn btn-danger btn-sm">Borrar</a> 
+                    <a href="{% url "artemis:listado_cuotas" pk=Matriculas.pk %}" class="btn btn-success btn-sm">Ver cuotas</a>
+                </td> 
+              </tr>
+            {% endfor %}
+        </tbody>
     </table>
-
     <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
-            {% endif %}
-    
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-    
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">Ultima &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
+        <ul class="pagination justify-content-center">
+      
+          {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primera</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">&laquo; Primera</span></li>
+          <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+          {% endif %}
+      
+          <li class="page-item disabled"><span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+      
+          {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+          <li class="page-item disabled"><span class="page-link">Última &raquo;</span></li>
+          {% endif %}
+      </div>
     <p>
-        <a href="{% url "artemis:index" %}">Volver al indice</a>
+        <a href="{% url "artemis:index" %}" class="btn btn-secondary btn-sm" >Volver al indice</a>
     </p>
 </ul>
 {%endblock content%}

@@ -97,3 +97,7 @@ class Cuotas(models.Model):
 
     def __str__(self):
         return str(self.cuotas_por_pagar)
+    
+    @property
+    def pagado_p(self):
+        return "Si" if self.pagado else "No"

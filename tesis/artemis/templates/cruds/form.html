@@ -2,7 +2,6 @@
 
 {% block content %}
 
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,24 +12,22 @@
    {% load crispy_forms_tags %}
 </head>
     <body>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-8">
-                    <h1 class="mt-2">Añadir</h1>
-                    <hr class="mt-0 mb-4">
-                        <form method="post">
-                            <div class ="fieldWrapper">
-                            {% csrf_token %}
-                            {{form.non_field_errors}}
-                            {{form|crispy}} 
-                            </div>
-                                <div>
-                                <button type="submit" class ="btn btn-success" value="Save"> Guardar </button>
-                                <input type="button" class = "btn btn-cancel" onclick="history.back();" value="Regresar">
-                                </div>
-                        </form>
-                    </div>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Ingresar </h5>
+            <div class="col-md-100">
+                <div style="display:flex;justify-content:center;">
+                    <form class="card-body" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form | crispy}}
                 </div>
+                        <div>
+                        <button type="submit" class ="btn btn-success" value="Save"> Guardar </button>
+                        <input type="button" class = "btn btn-cancel" onclick="history.back();" value="Regresar">
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </body>
 

@@ -71,7 +71,7 @@ class Diplomados_form(forms.ModelForm):
         fields = ['id','nombre_diplomado','cursos_req','capacidad','precio']
 
         widgets={
-            'cursos_req' : forms.CheckboxSelectMultiple(),
+            'cursos_req' : forms.CheckboxSelectMultiple(attrs={'class': 'form-control' })
         }
 
 class Matriculas_form(forms.ModelForm):
@@ -80,7 +80,7 @@ class Matriculas_form(forms.ModelForm):
         fields = ['diplomado','estudiantes','activo','num_cuotas']
 
         widgets ={
-            'diplomado' : forms.Select(),
+            'diplomado' : forms.Select()
         }
 
 class Cuotas_form(forms.ModelForm):
