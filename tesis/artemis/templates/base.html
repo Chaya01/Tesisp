@@ -39,7 +39,60 @@
 
   <!-- Specific Page CSS goes HERE  -->
   {% block stylesheets %}{% endblock stylesheets %}
+  <style>
+    .custom-form-card {
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .custom-form-card .card-body {
+        border: none;
+        padding: 20px;
+    }
+    /* Hide default checkbox */
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
 
+/* Create custom checkbox */
+input[type="checkbox"] + label::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Style custom checkbox when checked */
+input[type="checkbox"]:checked + label::before {
+  content: "\2713";
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #337ab7;
+  text-align: center;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+}
+
+/* Style label */
+label {
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+/* Style label when checkbox checked */
+input[type="checkbox"]:checked + label {
+  color: #333;
+}
+    </style>
 </head>
 
 <body class="">

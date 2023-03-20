@@ -36,13 +36,13 @@
                     <td>{{ cuota.fecha_emision }} </td>
                     <td>{{ cuota.fecha_exp }} </td>
                     <td>{{ cuota.pagado }}</td>
-                    <td>{{ cuota.monto_pago }} </td>
+                    <td>${{ cuota.monto_pago }} </td>
                     <td> <a href="{% url """ class="btn btn-success btn-sm">Pagar</a> 
-                </td> 
-            </tr>
-          {% endfor %}
-      </tbody>
-  </table>
+                    </td> 
+                </tr>
+              {% endfor %}
+          </tbody>
+      </table>
     <div class="pagination">
         <ul class="pagination justify-content-center">
       

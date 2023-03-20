@@ -12,10 +12,11 @@
    {% load crispy_forms_tags %}
 </head>
 
-<h2>Panel Becas</h2>
+
 <ul>
+    <h2>Panel Becas</h2>
 <p>
-    <a href="{% url "artemis:new_beca" %}">Agregar Beca</a>
+    <a href="{% url "artemis:new_beca" %}" class="btn btn-success btn-sm">Ingresar Beca</a>
 </p>
 <p>{{ artemis.name }}</p>
 
@@ -23,7 +24,6 @@
     <table class="table table-hover table table-bordered"> 
         <thead class="thead-light">
             <tr>
-                <th>Id</th>
                 <th>Nombre Beca</th>
                 <th>acciones</th>
             </tr>
@@ -31,7 +31,6 @@
         <tbody>
             {% for Becas in object_list %}
             <tr>
-                <td>{{ Becas.id }} </td> 
                 <td>{{ Becas.nombre_beca }} </td>
                 <td><a href="{% url "artemis:edit_beca" Becas.pk %}" class="btn btn-warning btn-sm">Editar</a>
                     <a href="{% url "artemis:delete_beca" Becas.pk %}" class="btn btn-danger btn-sm">Borrar</a>

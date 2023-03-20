@@ -12,54 +12,63 @@
    {% load crispy_forms_tags %}
 </head>
 
-<h1>Panel Diplomados</h1>
-<ul>
 
+<ul>
+    <h2>Panel Diplomados</h2>
 <p>
-    <a href="{% url "artemis:new_diplomado" %}">Agregar diplomado</a>
+    <a href="{% url "artemis:new_diplomado" %}" class="btn btn-success btn-sm">Agregar diplomado</a>
 </p>
 <p>{{ artemis.name }}</p>
 
 <div class="table-responsive">
-    <table class="table table-striped"> 
-        <th>ID</th>
-        <th>Nombre </th>
-        <th>Cursos  </th>
-        <th>Capacidad </th>
-        <th>Precio </th>
-{% for Diplomados in object_list %}
-  <tr>
-    <td>{{ Diplomados.id }} </td> 
-    <td>{{ Diplomados.nombre_diplomado }} </td> 
-    <td>{{ Diplomados.cursos_req.all|join:", " }} </td>  {{ place.area.all }}
-    <td>{{ Diplomados.capacidad}} </td>
-    <td>{{ Diplomados.precio}} </td>
-    <td><a href="{% url "artemis:edit_diplomado" Diplomados.pk %}">Editar</a> <a href="{% url "artemis:delete_diplomado" Diplomados.pk %}">Borrar</a></td> </td> 
-  </tr>
-{% endfor %}
-    </tr>
-    </table>
-
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
-            {% endif %}
-    
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-    
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">Ultima &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
+    <table class="table table-hover table table-bordered"> 
+        <thead class="thead-light">
+            <tr>
+                <th>Nombre </th>
+                <th>Cursos  </th>
+                <th>Capacidad </th>
+                <th>Precio </th>
+                <th>Acciones </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for Diplomados in object_list %}
+            <tr>
+                <td>{{ Diplomados.nombre_diplomado }} </td> 
+                <td>{{ Diplomados.cursos_req.all|join:", " }} </td>  {{ place.area.all }}
+                <td>{{ Diplomados.capacidad}} </td>
+                <td>${{ Diplomados.precio}} </td>
+                <td>
+                    <a href="{% url "artemis:edit_diplomado" Diplomados.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url "artemis:delete_diplomado" Diplomados.pk %}" class="btn btn-danger btn-sm">Borrar</a>
+                </td> 
+            </tr>
+      {% endfor %}
+  </tbody>
+</table>
+<div class="pagination">
+    <ul class="pagination justify-content-center">
+  
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primera</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+      {% else %}
+      <li class="page-item disabled"><span class="page-link">&laquo; Primera</span></li>
+      <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+      {% endif %}
+  
+      <li class="page-item disabled"><span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+  
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a></li>
+      {% else %}
+      <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+      <li class="page-item disabled"><span class="page-link">Última &raquo;</span></li>
+      {% endif %}
+  </div>
     <p>
-        <a href="{% url "artemis:index" %}">Volver al indice</a>
+        <a href="{% url "artemis:index" %}" class="btn btn-secondary btn-sm" >Volver al indice</a>
     </p>
 </ul>
-
 {%endblock content%}

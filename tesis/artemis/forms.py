@@ -32,6 +32,11 @@ class Estudiantes_form(forms.ModelForm):
     class Meta:
         model = Estudiantes
         fields = ['rut_estudiante','nombre_estudiante','apellido_estudiante','num_tel_estudiante','direccion_estudiante','profesion','beca']
+        
+        widgets ={
+            'profesion' : forms.Select(attrs={'class': 'form-control'}),
+            'beca' : forms.Select(attrs={'class': 'form-control'}),
+        }
 
 class Becas_form(forms.ModelForm):
     class Meta:
@@ -55,23 +60,34 @@ class Profesiones_form(forms.ModelForm):
         model = Profesiones
         fields = ['id','nombre_profesion','area_profesion']
 
+        widgets ={
+            'area_profesion' : forms.Select(attrs={'class': 'form-control'}),
+        }
+
 class Docentes_form(forms.ModelForm):
     class Meta:
         model = Docentes
         fields = ['rut_docente','nombre_docente','apellido_docente','profesion_docente','num_tel_docente']
+
+        widgets ={
+            'profesion_docente' : forms.Select(attrs={'class': 'form-control'}),
+        }
 
 class Cursos_form(forms.ModelForm):
     class Meta:
         model = Cursos
         fields = ['id','nombre_curso','docente']
 
+        widgets ={
+            'docente' : forms.Select(attrs={'class': 'form-control'}),
+        }
 class Diplomados_form(forms.ModelForm):
     class Meta:
         model = Diplomados
         fields = ['id','nombre_diplomado','cursos_req','capacidad','precio']
 
         widgets={
-            'cursos_req' : forms.CheckboxSelectMultiple(attrs={'class': 'form-control' })
+            'cursos_req' : forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input','type':'radio'})
         }
 
 class Matriculas_form(forms.ModelForm):
@@ -80,7 +96,9 @@ class Matriculas_form(forms.ModelForm):
         fields = ['diplomado','estudiantes','activo','num_cuotas']
 
         widgets ={
-            'diplomado' : forms.Select()
+            'diplomado' : forms.Select(attrs={'class': 'form-control'}),
+            'estudiantes' : forms.Select(attrs={'class': 'form-control'}),
+            'activo' : forms.Select(attrs={'class': 'form-control'}),
         }
 
 class Cuotas_form(forms.ModelForm):
