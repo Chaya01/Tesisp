@@ -22,6 +22,7 @@ from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.shortcuts import get_object_or_404, redirect
 
 ### Funciones ###
 
@@ -583,14 +584,31 @@ class Crear_cuota(CreateView):
 class Actualizar_cuota(UpdateView):
     model = Cuotas
     form_class = Cuotas_form
-    template_name = 'cruds/update.html'
-    sucess_url = reverse_lazy('artemis:index')
+    success_url = reverse_lazy('artemis:listado_cuotas')
+
+    def set_pagado(self):
+        # Retrieve the instance being updated
+        instance = self.get_object()
+        # Set the 'pagado' field to True    
+        instance.pagado = True
+        # Save the updated instance
+        instance.save()
+
+    def form_valid(self, form):
+        # Call set_pagado() before saving the form data
+        self.set_pagado()
+        return super().form_valid(form)
 
 class Borrar_cuota(DeleteView):
     model = Cuotas
     template_name = 'cruds/delete.html'
     sucess_url = reverse_lazy('artemis:index')
 
+def pagar_cuota(request, cuota_id):
+    cuota = get_object_or_404(Cuotas, pk=cuota_id)
+    cuota.pagado = True
+    cuota.save()
+    return redirect('artemis:listado_cuotas')
 
 #class Vista_areas(FormView):
 #   template_name = 'contact.html'

@@ -103,4 +103,5 @@ class Matriculas_form(forms.ModelForm):
 
 class Cuotas_form(forms.ModelForm):
     class Meta:
-        fields = ['id','cuotas_por_pagar','fecha_emision','fecha_exp','pagado','fecha_pago','monto_pago','numero_cuota']
+        model = Cuotas
+        fields = ['id','cuotas_por_pagar','fecha_exp','pagado','fecha_pago','monto_pago','numero_cuota']

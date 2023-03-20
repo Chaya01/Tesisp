@@ -37,7 +37,12 @@
                     <td>{{ cuota.fecha_exp }} </td>
                     <td>{{ cuota.pagado }}</td>
                     <td>${{ cuota.monto_pago }} </td>
-                    <td> <a href="{% url """ class="btn btn-success btn-sm">Pagar</a> 
+                    <td> 
+                        <form method="post" action="{% url 'artemis:edit_cuota' pk=cuota.pk %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="set_pagado" value="true">
+                            <button type="submit" class="btn btn-success">Marcar como pagado</button>
+                          </form>
                     </td> 
                 </tr>
               {% endfor %}
