@@ -35,13 +35,19 @@
                     <td>{{ cuota.numero_cuota|join:", " }} </td>  {{ place.area.all }}
                     <td>{{ cuota.fecha_emision }} </td>
                     <td>{{ cuota.fecha_exp }} </td>
-                    <td>{{ cuota.pagado }}</td>
+                    <td>
+                        {% if cuota.pagado %}
+                            Pagado
+                        {% else %}
+                            No pagado
+                        {% endif %}
+                    </td>
                     <td>${{ cuota.monto_pago }} </td>
                     <td> 
                         <form method="post" action="{% url 'artemis:pagar_cuota' pk=cuota.pk %}">
                             {% csrf_token %}
                             <input type="hidden" name="set_pagado" value="true">
-                            <button type="submit" class="btn btn-success">Marcar como pagado</button>
+                            <button type="submit" class="btn btn-success">Pagar cuota</button>
                           </form>
                     </td> 
                 </tr>

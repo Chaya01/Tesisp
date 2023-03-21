@@ -197,6 +197,15 @@ class listado_cuotas(ListView):
         # Return a queryset of all Cuotas objects that belong to the user
         return Cuotas.objects.filter(cuotas_por_pagar_id=matricula_id)
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Define a lambda function to get the display value of 'pagado'
+        get_pagado_display = lambda cuota: 'Pagado' if cuota.pagado else 'No pagado'
+        # Use a list comprehension to get the display value of 'pagado' for each object
+        pagado_display_list = [get_pagado_display(cuota) for cuota in context['cuotas']]
+        # Add the 'pagado_display_list' to the context
+        context['pagado_display_list'] = pagado_display_list
+        return context
 
 ### Cruds ### funciones basicas###
 ### Crud Estudiantes###
