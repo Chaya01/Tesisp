@@ -64,6 +64,7 @@ urlpatterns = [
     path('Matriculas/delete/<str:pk>', Borrar_matricula.as_view(), name='delete_matricula'),
 
     path('cuotas/update/<str:pk>', Actualizar_cuota.as_view(), name='edit_cuota'),
+    path('cuotas/pagar/<str:pk>', views.pagar_cuota, name='pagar_cuota'),
 
 #    path('areas/add/', Crear_area.as_view(), name='area-add'),
 #    path('areas/<int:pk>/', Editar_area.as_view(), name='area-update'),

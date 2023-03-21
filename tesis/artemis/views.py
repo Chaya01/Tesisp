@@ -604,11 +604,12 @@ class Borrar_cuota(DeleteView):
     template_name = 'cruds/delete.html'
     sucess_url = reverse_lazy('artemis:index')
 
-def pagar_cuota(request, cuota_id):
-    cuota = get_object_or_404(Cuotas, pk=cuota_id)
+def pagar_cuota(request, pk):
+    cuota = get_object_or_404(Cuotas, pk=pk)
+    matricula = cuota.cuotas_por_pagar
     cuota.pagado = True
     cuota.save()
-    return redirect('artemis:listado_cuotas')
+    return redirect('artemis:listado_cuotas', pk=matricula.id)
 
 #class Vista_areas(FormView):
 #   template_name = 'contact.html'
