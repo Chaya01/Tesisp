@@ -17,7 +17,7 @@ class Periodo(models.Model):
     nombre_periodo = models.CharField(max_length = 20) #ex-primer semestre 2022
     fecha_inicio = models.DateField()
     fecha_termino = models.DateField()
-    activo = models.BooleanField(default=False)
+    activo = models.BooleanField(default=False,verbose_name="Vigente")
     def __str__(self):
         return self.nombre_periodo
 
@@ -41,7 +41,7 @@ class Estudiantes(models.Model):
     num_tel_estudiante = models.IntegerField()
     direccion_estudiante = models.CharField(max_length=30)
     profesion = models.ForeignKey(Profesiones, on_delete= models.CASCADE)
-    beca = models.ForeignKey(Becas, on_delete=models.CASCADE)
+    beca = models.ForeignKey(Becas, on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return self.nombre_estudiante
 

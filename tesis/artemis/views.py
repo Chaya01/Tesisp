@@ -103,7 +103,7 @@ class panel_estudiantes(ListView):
 class panel_becas(ListView):
     context_object_name = 'panel_becas'
     template_name = 'panel_becas.html'
-    paginate_by = 10
+    paginate_by = 15
     queryset = Becas.objects.all()
     def get_context_data(self, **kwargs):
         context = super(panel_becas, self).get_context_data(**kwargs)
@@ -113,7 +113,7 @@ class panel_becas(ListView):
 class panel_periodos(ListView):
     context_object_name = 'panel_periodos'
     template_name = 'panel_periodos.html'
-    paginate_by = 10
+    paginate_by = 15
     queryset = Periodo.objects.all()
     def get_context_data(self, **kwargs):
         context = super(panel_periodos, self).get_context_data(**kwargs)
@@ -123,7 +123,7 @@ class panel_periodos(ListView):
 class panel_areas(ListView):
     context_object_name = 'panel_areas'
     template_name = 'panel_areas.html'
-    paginate_by = 10
+    paginate_by = 15
     queryset = Areas.objects.all()
     def get_context_data(self, **kwargs):
         context = super(panel_areas, self).get_context_data(**kwargs)
@@ -133,7 +133,7 @@ class panel_areas(ListView):
 class panel_profesiones(ListView):
     context_object_name = 'panel_profesiones'
     template_name = 'panel_profesiones.html'
-    paginate_by = 10
+    paginate_by = 15
     queryset = Profesiones.objects.all()
     def get_context_data(self, **kwargs):
         context = super(panel_profesiones, self).get_context_data(**kwargs)
@@ -143,7 +143,7 @@ class panel_profesiones(ListView):
 class panel_docentes(ListView):
     context_object_name = 'panel_docentes'
     template_name = 'panel_docentes.html'
-    paginate_by = 10
+    paginate_by = 15
     queryset = Docentes.objects.all()
     def get_context_data(self, **kwargs):
         context = super(panel_docentes, self).get_context_data(**kwargs)
@@ -153,7 +153,7 @@ class panel_docentes(ListView):
 class panel_cursos(ListView):
     context_object_name = 'panel_cursos'
     template_name = 'panel_cursos.html'
-    paginate_by = 10
+    paginate_by = 15
     queryset = Cursos.objects.all()
     def get_context_data(self, **kwargs):
         context = super(panel_cursos, self).get_context_data(**kwargs)
@@ -163,7 +163,7 @@ class panel_cursos(ListView):
 class panel_diplomados(ListView):
     context_object_name = 'panel_diplomados'
     template_name = 'panel_diplomados.html'
-    paginate_by = 10
+    paginate_by = 15
     queryset = Diplomados.objects.all()
     def get_context_data(self, **kwargs):
         context = super(panel_diplomados, self).get_context_data(**kwargs)
@@ -174,7 +174,7 @@ class panel_diplomados(ListView):
 class panel_matriculas(ListView):
     context_object_name = 'panel_matriculas'
     template_name = 'panel_matriculas.html'
-    paginate_by = 10
+    paginate_by = 15
     queryset = Matriculas.objects.all()
     def get_context_data(self, **kwargs):
         context = super(panel_matriculas, self).get_context_data(**kwargs)
