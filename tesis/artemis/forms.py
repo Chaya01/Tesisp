@@ -19,6 +19,9 @@ class NewUserForm(UserCreationForm):
 			user.save()
 		return user
 
+class SearchForm(forms.Form):
+    query = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Buscar...'}))
+
 class Formulario_area(forms.Form):
     id = forms.IntegerField()
     beca = forms.CharField(widget=forms.Textarea)
@@ -49,9 +52,9 @@ class Periodo_form(forms.ModelForm):
         fields = ['id','nombre_periodo','fecha_inicio','fecha_termino','activo']
 
         widgets = {
-            'fecha_inicio' : forms.DateInput(format="%d/%m/%Y",
+            'fecha_inicio' : forms.DateInput(format="%Y-%m-%d",
                                             attrs = {'type':'date','class':'form-control dtpicker', 'required': 'true'}),
-            'fecha_termino' : forms.DateInput(format="%d/%m/%Y",
+            'fecha_termino' : forms.DateInput(format="%Y-%m-%d",
                                             attrs = {'type':'date','class':'form-control dtpicker', 'required': 'true'}),
         }
 

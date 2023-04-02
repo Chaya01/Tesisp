@@ -12,17 +12,22 @@
 </head>
 
 
-<ul>
-    <h2>Panel Matriculas</h2>
-<p>
-    <a href="{% url "artemis:new_matricula" %}" class="btn btn-success btn-sm">Agregar matricula</a>
-</p>
-<p>{{ artemis.name }}</p>
-
-<div class="table-responsive">
-    <table class="table table-hover table table-bordered"> 
-        <thead class="thead-light">
-            <tr>
+<div class="card text-dark bg-light mb-3">
+    <div class="card-body">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Matriculas</h5>
+            <form method="GET" class="search-form">
+                <input type="text" name="query" value="{{ search_form.value }}" placeholder="Buscar...">
+                <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+                {% if search_form.value %}
+                    <a href="{% url 'artemis:panel_matricula' %}" class="btn btn-primary">Clear</a>
+                {% endif %}
+            </form>
+        </div>
+        <div class="table-responsive" style="max-height: calc(100vh - 270px); overflow-y: auto;">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-light">
+                    <tr>
                 <th>Diplomado </th>
                 <th>Estudiantes </th>
                 <th>Periodo</th>
@@ -32,7 +37,7 @@
         </thead>
         <tbody>
             {% for Matriculas in object_list %}
-              <tr>
+            <tr class="table-hover">
                 <td>{{ Matriculas.diplomado|join:", " }} </td>  {{ place.area.all }}
                 <td>{{ Matriculas.estudiantes|join:", " }} </td>  {{ place.area.all }}
                 <td>{{ Matriculas.activo }} </td>
@@ -40,11 +45,17 @@
                 <td> <a href="{% url "artemis:edit_matricula" Matriculas.pk %}" class="btn btn-warning btn-sm">Editar</a> 
                     <a href="{% url "artemis:delete_matricula" Matriculas.pk %}" class="btn btn-danger btn-sm">Borrar</a> 
                     <a href="{% url "artemis:listado_cuotas" pk=Matriculas.pk %}" class="btn btn-success btn-sm">Ver cuotas</a>
-                </td> 
-              </tr>
+                </td>          
+            </tr>
             {% endfor %}
         </tbody>
     </table>
+</div>
+<div class="d-flex justify-content-end">
+    <a href="{% url "artemis:new_matricula" %}" class="btn btn-success btn-sm mt-3"> Agregar matricula</a>
+</div>
+</div>
+</div>
     <div class="pagination">
         <ul class="pagination justify-content-center">
       

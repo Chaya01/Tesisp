@@ -17,12 +17,13 @@ from . import views
 from .forms import *
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import Matriculas_form
+from .forms import Matriculas_form, SearchForm
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect
+from django.db.models import Q
 
 ### Funciones ###
 
@@ -95,9 +96,24 @@ class panel_estudiantes(ListView):
     template_name = 'panel_estudiantes.html'
     paginate_by = 10
     queryset = Estudiantes.objects.all()
+    search_form = SearchForm
+    
+    def get_queryset(self):
+        queryset = Estudiantes.objects.order_by('nombre_estudiante')
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(
+                Q(nombre_estudiante__icontains=query) |
+                Q(apellido_estudiante__icontains=query) |
+                Q(rut_estudiante__icontains=query) |
+                Q(num_tel_estudiante__icontains=query) |
+                Q(profesion__nombre_profesion__icontains=query)
+            )
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super(panel_estudiantes, self).get_context_data(**kwargs)
-        context['Estudiantes'] = Estudiantes.objects.all()
+        context['search_form'] = self.search_form(self.request.GET or None)
         return context
 
 class panel_becas(ListView):
@@ -105,9 +121,20 @@ class panel_becas(ListView):
     template_name = 'panel_becas.html'
     paginate_by = 15
     queryset = Becas.objects.all()
+    search_form = SearchForm
+    
+    def get_queryset(self):
+        queryset = Becas.objects.order_by('nombre_beca')
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(
+                Q(nombre_beca__icontains=query)
+            )
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super(panel_becas, self).get_context_data(**kwargs)
-        context['Becas'] = Becas.objects.all()
+        context['search_form'] = self.search_form(self.request.GET or None)
         return context
 
 class panel_periodos(ListView):
@@ -115,9 +142,24 @@ class panel_periodos(ListView):
     template_name = 'panel_periodos.html'
     paginate_by = 15
     queryset = Periodo.objects.all()
+    search_form = SearchForm
+    
+    def get_queryset(self):
+        queryset = Periodo.objects.order_by('nombre_periodo')
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(
+                Q(nombre_periodo__icontains=query) |
+                Q(fecha_inicio__icontains=query) |
+                Q(fecha_termino__icontains=query) |
+                Q(activo__icontains=query)
+            )
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super(panel_periodos, self).get_context_data(**kwargs)
-        context['Periodo'] = Periodo.objects.all()
+        context['vigente_display_list'] = ['Vigente' if periodo.activo else 'No vigente' for periodo in context['object_list']]
+        context['search_form'] = self.search_form(self.request.GET or None)
         return context
 
 class panel_areas(ListView):
@@ -125,9 +167,20 @@ class panel_areas(ListView):
     template_name = 'panel_areas.html'
     paginate_by = 15
     queryset = Areas.objects.all()
+    search_form = SearchForm
+    
+    def get_queryset(self):
+        queryset = Areas.objects.order_by('nombre_area')
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(
+                Q(nombre_area__icontains=query)
+            )
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super(panel_areas, self).get_context_data(**kwargs)
-        context['Areas'] = Areas.objects.all()
+        context['search_form'] = self.search_form(self.request.GET or None)
         return context
 
 class panel_profesiones(ListView):
@@ -135,9 +188,21 @@ class panel_profesiones(ListView):
     template_name = 'panel_profesiones.html'
     paginate_by = 15
     queryset = Profesiones.objects.all()
+    search_form = SearchForm
+    
+    def get_queryset(self):
+        queryset = Profesiones.objects.order_by('nombre_profesion')
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(
+                Q(nombre_profesion__icontains=query) |
+                Q(area_profesion__nombre_area__icontains=query)
+            )
+        return queryset
+    
     def get_context_data(self, **kwargs):
         context = super(panel_profesiones, self).get_context_data(**kwargs)
-        context['Profesiones'] = Profesiones.objects.all()
+        context['search_form'] = self.search_form(self.request.GET or None)
         return context
 
 class panel_docentes(ListView):
@@ -145,9 +210,24 @@ class panel_docentes(ListView):
     template_name = 'panel_docentes.html'
     paginate_by = 15
     queryset = Docentes.objects.all()
+    search_form = SearchForm
+    
+    def get_queryset(self):
+        queryset = Docentes.objects.order_by('nombre_docente')
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(
+                Q(rut_docente__icontains=query) |
+                Q(nombre_docente__icontains=query) |
+                Q(apellido_docente__icontains=query) |
+                Q(profesion_docente__nombre_profesion__icontains=query) |
+                Q(num_tel_docente__icontains=query)
+            )
+        return queryset
+    
     def get_context_data(self, **kwargs):
         context = super(panel_docentes, self).get_context_data(**kwargs)
-        context['Docentes'] = Docentes.objects.all()
+        context['search_form'] = self.search_form(self.request.GET or None)
         return context
 
 class panel_cursos(ListView):
@@ -155,9 +235,21 @@ class panel_cursos(ListView):
     template_name = 'panel_cursos.html'
     paginate_by = 15
     queryset = Cursos.objects.all()
+    search_form = SearchForm
+    
+    def get_queryset(self):
+        queryset = Cursos.objects.order_by('nombre_curso')
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(
+                Q(nombre_curso__icontains=query) |
+                Q(docente__nombre_docente__icontains=query)
+            )
+        return queryset
+    
     def get_context_data(self, **kwargs):
         context = super(panel_cursos, self).get_context_data(**kwargs)
-        context['Cursos'] = Cursos.objects.all()
+        context['search_form'] = self.search_form(self.request.GET or None)
         return context
 
 class panel_diplomados(ListView):
@@ -165,10 +257,21 @@ class panel_diplomados(ListView):
     template_name = 'panel_diplomados.html'
     paginate_by = 15
     queryset = Diplomados.objects.all()
+    search_form = SearchForm
+    
+    def get_queryset(self):
+        queryset = Diplomados.objects.order_by('nombre_diplomado')
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(
+                Q(nombre_diplomado__icontains=query) |
+                Q(cursos_req__nombre_curso__icontains=query)            
+            )
+        return queryset
+    
     def get_context_data(self, **kwargs):
         context = super(panel_diplomados, self).get_context_data(**kwargs)
-        context['Diplomados'] = Diplomados.objects.all()
-        context['Cursos'] = Cursos.objects.all()
+        context['search_form'] = self.search_form(self.request.GET or None)
         return context
 
 class panel_matriculas(ListView):
@@ -176,11 +279,27 @@ class panel_matriculas(ListView):
     template_name = 'panel_matriculas.html'
     paginate_by = 15
     queryset = Matriculas.objects.all()
+    search_form = SearchForm
+    
+    def get_queryset(self):
+        queryset = Matriculas.objects.order_by('diplomado')
+        query = self.request.GET.get('query')
+        if query:
+            queryset = queryset.filter(
+                Q(diplomado__nombre_diplomado__icontains=query) |
+                Q(cursos_req__nombre_curso__icontains=query)   |
+                Q(estudiantes__nombre_estudiante__icontains=query)   |
+                Q(activo__nombre_periodo__icontains=query)                       
+            )
+        return queryset
+    
     def get_context_data(self, **kwargs):
         context = super(panel_matriculas, self).get_context_data(**kwargs)
         context['Matriculas'] = Matriculas.objects.all()
         context['Diplomados'] = Diplomados.objects.all()
         context['Estudiantes'] = Estudiantes.objects.all()
+        context['search_form'] = self.search_form(self.request.GET or None)
+
         return context
     
 class listado_cuotas(ListView):
@@ -206,6 +325,7 @@ class listado_cuotas(ListView):
         # Add the 'pagado_display_list' to the context
         context['pagado_display_list'] = pagado_display_list
         return context
+        
 
 ### Cruds ### funciones basicas###
 ### Crud Estudiantes###
