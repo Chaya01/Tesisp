@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'artemis',
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_extensions',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'

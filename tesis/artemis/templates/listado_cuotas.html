@@ -11,14 +11,22 @@
    {% load crispy_forms_tags %}
 </head>
 
-<h2>Cuotas</h2>
-<ul>
-<p>{{ artemis.name }}</p>
-
-<div class="table-responsive">
-    <table class="table table-hover table table-bordered"> 
-        <thead class="thead-light">
-            <tr>
+<div class="card text-dark bg-light mb-3">
+    <div class="card-body">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Profesiones</h5>
+            <form method="GET" class="search-form">
+                <input type="text" name="query" value="{{ search_form.value }}" placeholder="Buscar...">
+                <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+                {% if search_form.value %}
+                    <a href="{% url 'artemis:panel_profesiones' %}" class="btn btn-primary">Clear</a>
+                {% endif %}
+            </form>
+        </div>
+        <div class="table-responsive" style="max-height: calc(100vh - 270px); overflow-y: auto;">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-light">
+                    <tr class="table-hover">
                 <th>Estudiante </th>
                 <th>Numero de cuota </th>
                 <th>fecha emision </th>
@@ -49,11 +57,14 @@
                             <input type="hidden" name="set_pagado" value="true">
                             <button type="submit" class="btn btn-success">Pagar cuota</button>
                           </form>
-                    </td> 
-                </tr>
-              {% endfor %}
-          </tbody>
-      </table>
+                        </td>          
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
     <div class="pagination">
         <ul class="pagination justify-content-center">
       
