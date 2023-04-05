@@ -113,7 +113,9 @@ class panel_estudiantes(ListView):
                 Q(apellido_estudiante__icontains=query) |
                 Q(rut_estudiante__icontains=query) |
                 Q(num_tel_estudiante__icontains=query) |
-                Q(profesion__nombre_profesion__icontains=query)
+                Q(profesion__nombre_profesion__icontains=query) |
+                Q(direccion_estudiante__icontains=query)
+
             )
         return queryset
 
@@ -312,7 +314,7 @@ class listado_cuotas(ListView):
     model = Cuotas
     template_name = 'listado_cuotas.html'
     context_object_name = 'cuotas'
-    paginate_by = 20
+    paginate_by = 10
 
     def get_queryset(self):
         # Retrieve the user ID from the URL parameter
@@ -352,7 +354,7 @@ class Crear_estudiante(CreateView):
         apellido = form.cleaned_data['apellido_estudiante']
         a = re.search("[a-z]$",nombre) #validar nombre
         b = re.search("[a-z]$",apellido) #validar apellido
-        x = re.search("[0-9]{8}[0-9kK]{1}$", rut) #validar rut
+        x = re.search("[0-9]{7,8}[0-9kK]{1}$", rut) #validar rut
 
         if not x:
             form.add_error('rut_estudiante', 'rut invalido')
@@ -379,7 +381,7 @@ class Actualizar_estudiante(UpdateView):
         apellido = form.cleaned_data['apellido_estudiante']
         a = re.search("[a-z]$",nombre) #validar nombre
         b = re.search("[a-z]$",apellido) #validar apellido
-        x = re.search("[0-9]{8}[0-9kK]{1}$", rut) #validar rut
+        x = re.search("[0-9]{7,8}[0-9kK]{1}$", rut) #validar rut
 
         if not x:
             form.add_error('rut_estudiante', 'rut invalido')
@@ -391,6 +393,7 @@ class Actualizar_estudiante(UpdateView):
             form.add_error('apellido_estudiante','el apellido solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Actualizar_estudiante, self).form_valid(form)
+        
 @method_decorator(login_required, name='dispatch' )
 class Borrar_estudiante(DeleteView):
     model = Estudiantes
@@ -739,7 +742,7 @@ class Borrar_cuota(DeleteView):
     model = Cuotas
     template_name = 'cruds/delete.html'
     sucess_url = reverse_lazy('artemis:index')
-@method_decorator(login_required, name='dispatch' )
+    
 def pagar_cuota(request, pk):
     cuota = get_object_or_404(Cuotas, pk=pk)
     matricula = cuota.cuotas_por_pagar

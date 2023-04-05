@@ -39,7 +39,7 @@ class Estudiantes_form(forms.ModelForm):
         widgets ={
             'profesion' : forms.Select(attrs={'class': 'form-control'}),
             'beca' : forms.Select(attrs={'class': 'form-control'}),
-        }
+        }   
 
 class Becas_form(forms.ModelForm):
     class Meta:

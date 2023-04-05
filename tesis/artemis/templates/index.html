@@ -5,41 +5,17 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-<h1>Indice</h1>
+{%load static%}
 
-<p>
-    <a href="{% url "artemis:panel_estudiantes" %}">Panel Estudiantes</a>
-</p>
-
-<p>
-    <a href="{% url "artemis:panel_becas" %}">Panel Becas</a>
-</p>
-
-<p>
-    <a href="{% url "artemis:panel_periodos" %}">Panel Periodos</a>
-</p>
-
-<p>
-    <a href="{% url "artemis:panel_areas" %}">Panel Areas</a>
-</p>
-
-<p>
-    <a href="{% url "artemis:panel_profesiones" %}">Panel Profesiones</a>
-</p>
-
-<p>
-    <a href="{% url "artemis:panel_docentes" %}">Panel Docentes</a>
-</p>
-
-<p>
-    <a href="{% url "artemis:panel_cursos" %}">Panel Cursos</a>
-</p>
-
-<p>
-    <a href="{% url "artemis:panel_diplomados" %}">Panel Diplomados</a>
-</p>
-
-<p>
-    <a href="{% url "artemis:panel_matriculas" %}">Panel Matriculas</a>
-</p>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <img style="" src="{%static 'assets/img/Logo UNACH-04.png' %}" alt="logo" width="600px" height="150px">
+    <title>Bienvenido al sistema de gestión de diplomados</title>
+</head>
+<body>
+	<h1>Bienvenido al sistema de gestión de diplomados</h1>
+    <h4>Por favor utilice la barra de navegacion lateral para utilizar la aplicacion</h4>
+</body>
+</html>
 {%endblock content%}
