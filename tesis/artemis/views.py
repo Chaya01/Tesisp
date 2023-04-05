@@ -24,6 +24,9 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect
 from django.db.models import Q
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 ### Funciones ###
 
@@ -62,6 +65,7 @@ def login_request(request):
 	return render(request=request, template_name="login.html", context={"login_form":form})
 
 #Funciones suplementarias
+@method_decorator(login_required, name='dispatch' )
 def crear_cuotas(numero_cuotas:int, payload):
     objetos_a_crear = []
     for cuotas in range(numero_cuotas):
@@ -75,6 +79,7 @@ def crear_cuotas(numero_cuotas:int, payload):
     return res
 #def index(request):
 #    return HttpResponse("Hello, world. You're at the polls index.")
+@method_decorator(login_required, name='dispatch' )
 
 class index(ListView):
     context_object_name = 'index'
@@ -91,6 +96,7 @@ class index(ListView):
 #    template_name = 'panel_estudiantes.html'
 
 ### Paneles de administracion ###
+@method_decorator(login_required, name='dispatch' )
 class panel_estudiantes(ListView):
     context_object_name = 'panel_estudiantes'
     template_name = 'panel_estudiantes.html'
@@ -115,7 +121,7 @@ class panel_estudiantes(ListView):
         context = super(panel_estudiantes, self).get_context_data(**kwargs)
         context['search_form'] = self.search_form(self.request.GET or None)
         return context
-
+@method_decorator(login_required, name='dispatch' )
 class panel_becas(ListView):
     context_object_name = 'panel_becas'
     template_name = 'panel_becas.html'
@@ -136,7 +142,7 @@ class panel_becas(ListView):
         context = super(panel_becas, self).get_context_data(**kwargs)
         context['search_form'] = self.search_form(self.request.GET or None)
         return context
-
+@method_decorator(login_required, name='dispatch' )
 class panel_periodos(ListView):
     context_object_name = 'panel_periodos'
     template_name = 'panel_periodos.html'
@@ -161,7 +167,7 @@ class panel_periodos(ListView):
         context['vigente_display_list'] = ['Vigente' if periodo.activo else 'No vigente' for periodo in context['object_list']]
         context['search_form'] = self.search_form(self.request.GET or None)
         return context
-
+@method_decorator(login_required, name='dispatch' )
 class panel_areas(ListView):
     context_object_name = 'panel_areas'
     template_name = 'panel_areas.html'
@@ -182,7 +188,7 @@ class panel_areas(ListView):
         context = super(panel_areas, self).get_context_data(**kwargs)
         context['search_form'] = self.search_form(self.request.GET or None)
         return context
-
+@method_decorator(login_required, name='dispatch' )
 class panel_profesiones(ListView):
     context_object_name = 'panel_profesiones'
     template_name = 'panel_profesiones.html'
@@ -204,7 +210,7 @@ class panel_profesiones(ListView):
         context = super(panel_profesiones, self).get_context_data(**kwargs)
         context['search_form'] = self.search_form(self.request.GET or None)
         return context
-
+@method_decorator(login_required, name='dispatch' )
 class panel_docentes(ListView):
     context_object_name = 'panel_docentes'
     template_name = 'panel_docentes.html'
@@ -229,7 +235,7 @@ class panel_docentes(ListView):
         context = super(panel_docentes, self).get_context_data(**kwargs)
         context['search_form'] = self.search_form(self.request.GET or None)
         return context
-
+@method_decorator(login_required, name='dispatch' )
 class panel_cursos(ListView):
     context_object_name = 'panel_cursos'
     template_name = 'panel_cursos.html'
@@ -251,7 +257,7 @@ class panel_cursos(ListView):
         context = super(panel_cursos, self).get_context_data(**kwargs)
         context['search_form'] = self.search_form(self.request.GET or None)
         return context
-
+@method_decorator(login_required, name='dispatch' )
 class panel_diplomados(ListView):
     context_object_name = 'panel_diplomados'
     template_name = 'panel_diplomados.html'
@@ -273,7 +279,7 @@ class panel_diplomados(ListView):
         context = super(panel_diplomados, self).get_context_data(**kwargs)
         context['search_form'] = self.search_form(self.request.GET or None)
         return context
-
+@method_decorator(login_required, name='dispatch' )
 class panel_matriculas(ListView):
     context_object_name = 'panel_matriculas'
     template_name = 'panel_matriculas.html'
@@ -301,7 +307,7 @@ class panel_matriculas(ListView):
         context['search_form'] = self.search_form(self.request.GET or None)
 
         return context
-    
+@method_decorator(login_required, name='dispatch' )
 class listado_cuotas(ListView):
     model = Cuotas
     template_name = 'listado_cuotas.html'
@@ -329,10 +335,11 @@ class listado_cuotas(ListView):
 
 ### Cruds ### funciones basicas###
 ### Crud Estudiantes###
+@method_decorator(login_required, name='dispatch' )
 class Detalle_estudiante(DetailView):
     model = Estudiantes
     template_name = 'cruds/student_detail.html'
-
+@method_decorator(login_required, name='dispatch' )
 class Crear_estudiante(CreateView):
     model = Estudiantes
     form_class = Estudiantes_form
@@ -357,7 +364,7 @@ class Crear_estudiante(CreateView):
             form.add_error('apellido_estudiante','el apellido solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Crear_estudiante, self).form_valid(form)
-    
+@method_decorator(login_required, name='dispatch' )
 class Actualizar_estudiante(UpdateView):
     model = Estudiantes
     form_class = Estudiantes_form
@@ -384,18 +391,18 @@ class Actualizar_estudiante(UpdateView):
             form.add_error('apellido_estudiante','el apellido solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Actualizar_estudiante, self).form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Borrar_estudiante(DeleteView):
     model = Estudiantes
     template_name = 'cruds/delete.html'
     success_url = reverse_lazy('artemis:panel_estudiantes')
 
 ### Becas ###
-
+@method_decorator(login_required, name='dispatch' )
 class Detalle_becas(DetailView):
     model = Becas
     template_name = 'cruds/becas_detail.html'
-
+@method_decorator(login_required, name='dispatch' )
 class Crear_beca(CreateView):
     model = Becas
     form_class = Becas_form
@@ -409,7 +416,7 @@ class Crear_beca(CreateView):
             form.add_error('nombre_beca','El nombre solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Crear_beca, self).form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Actualizar_beca(UpdateView):
     model = Becas
     form_class = Becas_form
@@ -423,7 +430,7 @@ class Actualizar_beca(UpdateView):
             form.add_error('nombre_beca','El nombre solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Actualizar_beca, self).form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Borrar_beca(DeleteView):
     model = Becas
     template_name = 'cruds/delete.html'
@@ -434,30 +441,30 @@ class Borrar_beca(DeleteView):
 #class Detalle_periodos(DetailView):
 #    model = Periodo
 #    template_name ='cruds/periodos_detail.html'
-
+@method_decorator(login_required, name='dispatch' )
 class Crear_periodo(CreateView):
     model = Periodo
     form_class = Periodo_form
     template_name = 'cruds/form.html'
     success_url = reverse_lazy('artemis:panel_periodos')
-
+@method_decorator(login_required, name='dispatch' )
 class Actualizar_periodo(UpdateView):
     model = Periodo
     form_class = Periodo_form
     template_name = 'cruds/update.html'
     success_url = reverse_lazy('artemis:panel_periodos')
-
+@method_decorator(login_required, name='dispatch' )
 class Borrar_periodo(DeleteView):
     model = Periodo
     template_name = 'cruds/delete.html'
     success_url = reverse_lazy('artemis:panel_periodos')
 
 ### Areas ###
-
+@method_decorator(login_required, name='dispatch' )
 class Detalle_area(DetailView):
     model = Areas
     template_name = 'cruds/areas_detail.html'
-
+@method_decorator(login_required, name='dispatch' )
 class Crear_area(CreateView):
     model = Areas
     form_class = Areas_form
@@ -471,7 +478,7 @@ class Crear_area(CreateView):
             form.add_error('nombre_area','El nombre solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Crear_area, self).form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Actualizar_area(UpdateView):
     model = Areas
     form_class = Areas_form
@@ -485,18 +492,18 @@ class Actualizar_area(UpdateView):
             form.add_error('nombre_area','El nombre solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Actualizar_area, self).form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Borrar_area(DeleteView):
     model = Areas
     template_name = 'cruds/delete.html'
     success_url = reverse_lazy('artemis:panel_areas')
 
 ### Profesiones ###
-
+@method_decorator(login_required, name='dispatch' )
 class Detalle_profesiones(DetailView):
     model = Profesiones
     template_name = 'cruds/profesiones_detail.html'
-
+@method_decorator(login_required, name='dispatch' )
 class Crear_profesiones(CreateView):
     model = Profesiones
     form_class = Profesiones_form
@@ -510,24 +517,24 @@ class Crear_profesiones(CreateView):
             form.add_error('nombre_profesion','El nombre solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Crear_profesiones, self).form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Actualizar_profesiones(UpdateView):
     model = Profesiones
     form_class = Profesiones_form
     template_name = 'cruds/update.html'
     success_url = reverse_lazy('artemis:panel_profesiones')
-
+@method_decorator(login_required, name='dispatch' )
 class Borrar_profesiones(DeleteView):
     model = Profesiones
     template_name = 'cruds/delete.html'
     success_url = reverse_lazy('artemis:panel_profesiones')
 
 ### Docentes ###
-
+@method_decorator(login_required, name='dispatch' )
 class Detalle_docentes(DetailView):
     model = Docentes
     template_name = 'cruds/docentes_detail.html'
-
+@method_decorator(login_required, name='dispatch' )
 class Crear_docente(CreateView):
     model = Docentes
     form_class = Docentes_form
@@ -552,7 +559,7 @@ class Crear_docente(CreateView):
             form.add_error('apellido_docente','el apellido solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Crear_docente, self).form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Actualizar_docente(UpdateView):
     model = Docentes
     form_class = Docentes_form
@@ -577,41 +584,41 @@ class Actualizar_docente(UpdateView):
             form.add_error('apellido_docente','el apellido solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Actualizar_docente, self).form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Borrar_docente(DeleteView):
     model = Docentes
     template_name = 'cruds/delete.html'
     success_url = reverse_lazy('artemis:panel_docentes')
 
 ### Cursos ###
-
+@method_decorator(login_required, name='dispatch' )
 class Detalle_cursos(DetailView):
     model = Cursos
     template_name = 'cruds/cursos_detail.html'
-
+@method_decorator(login_required, name='dispatch' )
 class Crear_cursos(CreateView):
     model = Cursos
     form_class = Cursos_form
     template_name = 'cruds/form.html'
     success_url = reverse_lazy('artemis:panel_cursos')
-
+@method_decorator(login_required, name='dispatch' )
 class Actualizar_cursos(UpdateView):
     model = Cursos
     form_class = Cursos_form
     template_name = 'cruds/update.html'
     success_url = reverse_lazy('artemis:panel_cursos')
-
+@method_decorator(login_required, name='dispatch' )
 class Borrar_cursos(DeleteView):
     model = Cursos
     template_name ='cruds/delete.html'
     success_url = reverse_lazy('artemis:panel_cursos')
 
 ### Diplomados ###
-
+@method_decorator(login_required, name='dispatch' )
 class Detalle_diplomados(DetailView):
     model = Diplomados
     template_name = 'cruds/diplomados_detail.html'
-
+@method_decorator(login_required, name='dispatch' )
 class Crear_diplomados(CreateView):
     model = Diplomados
     form_class = Diplomados_form
@@ -625,7 +632,7 @@ class Crear_diplomados(CreateView):
             form.add_error('nombre_diplomado','El nombre solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Crear_diplomados, self).form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Actualizar_diplomados(UpdateView):
     model = Diplomados
     form_class = Diplomados_form
@@ -639,18 +646,18 @@ class Actualizar_diplomados(UpdateView):
             form.add_error('nombre_diplomado','El nombre solo debe contener caracteres alfanumericos')
             return self.form_invalid(form)
         return super(Actualizar_diplomados, self).form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Borrar_diplomado(DeleteView):
     model = Diplomados
     template_name = 'cruds/delete.html'
     success_url= reverse_lazy('artemis:panel_diplomados')
 
 ### Matriculas ###
-
+@method_decorator(login_required, name='dispatch' )
 class Detalle_matricula(DetailView):
     model = Matriculas
     template_name = 'cruds/matriculas_detail.html'
-
+@method_decorator(login_required, name='dispatch' )
 class Crear_matricula(CreateView):
     model = Matriculas
     form_class = Matriculas_form
@@ -686,30 +693,30 @@ class Crear_matricula(CreateView):
 #            payment = Cuotas.objects.create(cuotas_por_pagar=matricula, monto_pago=payment_amount, numero_cuota=i+1)
             payment = Cuotas.objects.create(cuotas_por_pagar=matricula, monto_pago=payment_amount, numero_cuota=i+1, fecha_emision=datetime.today(), fecha_exp=fecha_exp)
             fecha_exp += relativedelta(months=1)
-
+@method_decorator(login_required, name='dispatch' )
 class Actualizar_matricula(UpdateView):
     model = Matriculas
     form_class = Matriculas_form
     template_name = 'cruds/update.html'
     success_url = reverse_lazy('artemis:panel_matriculas')
-
+@method_decorator(login_required, name='dispatch' )
 class Borrar_matricula(DeleteView):
     model = Matriculas
     template_name = 'cruds/delete.html'
     success_url = reverse_lazy('artemis:panel_matriculas')
 
 ### Cuotas ###
-
+@method_decorator(login_required, name='dispatch' )
 class Detalle_cuotas(DetailView):
     model = Cuotas
     template_name = 'cruds/cuotas_detail.html'
-
+@method_decorator(login_required, name='dispatch' )
 class Crear_cuota(CreateView):
     model = Cuotas
     form_class = Cuotas_form
     template_name = 'cruds/form.html'
     success_url = reverse_lazy('artemis:index')
-
+@method_decorator(login_required, name='dispatch' )
 class Actualizar_cuota(UpdateView):
     model = Cuotas
     form_class = Cuotas_form
@@ -727,12 +734,12 @@ class Actualizar_cuota(UpdateView):
         # Call set_pagado() before saving the form data
         self.set_pagado()
         return super().form_valid(form)
-
+@method_decorator(login_required, name='dispatch' )
 class Borrar_cuota(DeleteView):
     model = Cuotas
     template_name = 'cruds/delete.html'
     sucess_url = reverse_lazy('artemis:index')
-
+@method_decorator(login_required, name='dispatch' )
 def pagar_cuota(request, pk):
     cuota = get_object_or_404(Cuotas, pk=pk)
     matricula = cuota.cuotas_por_pagar
