@@ -6,7 +6,8 @@ app_name = 'artemis'
 
 urlpatterns = [
     ###paneles ###
-    path('',index.as_view(), name='index'),
+    path('', views.login_request, name="login"),
+    path('index.html',index.as_view(), name='index'),
     path('panel_estudiantes.html',panel_estudiantes.as_view(),name ='panel_estudiantes'),
     path('panel_becas.html',panel_becas.as_view(),name='panel_becas'),
     path('panel_periodos.html',panel_periodos.as_view(),name = 'panel_periodos'),
@@ -21,7 +22,7 @@ urlpatterns = [
     path('cuotas/<int:pk>/', views.listado_cuotas.as_view(), name='listado_cuotas'),
 
 
-    path("login.html", views.login_request, name="login"),
+#    path("login.html", views.login_request, name="login"),
     path("register.html", views.register_request, name="register"),
 
     ### Funciones ###

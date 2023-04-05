@@ -306,7 +306,7 @@ class listado_cuotas(ListView):
     model = Cuotas
     template_name = 'listado_cuotas.html'
     context_object_name = 'cuotas'
-    paginate_by = 10
+    paginate_by = 20
 
     def get_queryset(self):
         # Retrieve the user ID from the URL parameter
